@@ -6,6 +6,14 @@ pipeline {
     }
 
     stages {
+        stage('Debug comandos') {
+            steps {
+                sh 'which node || echo "no hay node"'
+                sh 'which npm || echo "no hay npm"'
+                sh 'which sonar-scanner || echo "no hay sonar-scanner"'
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
