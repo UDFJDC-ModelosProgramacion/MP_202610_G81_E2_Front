@@ -12,13 +12,6 @@ pipeline {
             }
         }
 
-        stage('Obtener IP') {
-            steps {
-                sh 'hostname -I'
-                sh 'ip a'
-            }
-        } 
-
         stage('Instalar Dependencias') {
             steps {
                 sh 'node -v'
