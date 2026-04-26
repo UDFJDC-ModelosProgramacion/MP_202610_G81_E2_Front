@@ -10,8 +10,8 @@ pipeline {
 
         stage('Instalar Dependencias') {
             steps {
-                bat 'node -v'
-                bat 'npm install'
+                sh 'node -v'
+                sh 'npm install'
             }
         }
 
@@ -21,7 +21,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('MP_202610_G81_E2_Front') {
-                    bat "%scannerHome%\\bin\\sonar-scanner.bat"
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
 
         stage('Construir (Build)') {
             steps {
-                bat 'npm run build'
+                sh 'npm run build'
             }
         }
     }
