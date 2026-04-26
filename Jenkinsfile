@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:18'
+        }
+    }
 
     tools {
         nodejs 'NodeJS 18' // Cambia esto si en tu Jenkins le pusiste otro nombre a la instalación de Node
@@ -40,7 +44,9 @@ pipeline {
         stage('Construir (Build)') {
             steps {
                 // Vite usa este comando para generar la versión de producción en la carpeta 'dist'
-                sh 'npm run build'
+                bat 'npm isntall'
+                bat 'npm run build'
+            
             }
         }
     }
