@@ -1,13 +1,18 @@
 pipeline {
     agent any
-
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-
+        
+        stage('Debug') {
+            steps {
+                sh 'which node || echo "node no existe"'
+                sh 'which npm || echo "npm no existe"'
+            }
+        }
         stage('Instalar Dependencias') {
             steps {
                 sh 'node -v'
