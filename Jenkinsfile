@@ -1,21 +1,21 @@
 pipeline {
     agent any
+
+    tools {
+        nodejs 'NodeJS 18'
+    }
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-        
-        stage('Debug') {
-            steps {
-                sh 'which node || echo "node no existe"'
-                sh 'which npm || echo "npm no existe"'
-            }
-        }
+
         stage('Instalar Dependencias') {
             steps {
                 sh 'node -v'
+                sh 'npm -v'
                 sh 'npm install'
             }
         }
