@@ -47,6 +47,12 @@ pipeline {
             }
         }
 
+        stage('Fix permisos') {
+            steps {
+                sh 'chmod -R +x node_modules/.bin'
+            }
+        }
+
         stage('Construir (Build)') {
             steps {
                 sh 'npm run build'
