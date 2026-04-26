@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS 18'
+        nodejs 'NodeJS 20'
     }
 
     stages {
@@ -22,8 +22,11 @@ pipeline {
 
         stage('Instalar Dependencias') {
             steps {
+                script {
+                    def nodeHome = tool 'NodeJS 20'
+                    env.PATH = "${nodeHome}/bin:${env.PATH}"
+                }
                 sh 'node -v'
-                sh 'npm -v'
                 sh 'npm install'
             }
         }
