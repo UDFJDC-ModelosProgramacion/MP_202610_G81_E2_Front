@@ -97,7 +97,7 @@ export function CreatePetScreen() {
           <div className="flex flex-col">
             <div className={`flex items-center justify-between border rounded-full px-4 py-3 bg-white ${errors.species ? 'border-red-500' : 'border-gray-400'}`}>
               <div className="flex items-center w-full">
-                <span className="text-[#5a32e1] mr-2">◀</span>
+                <span className="text-[#5a32e1] mr-2">▶</span>
                 <select id="species" value={formData.species} onChange={handleChange} className="w-full outline-none text-gray-500 bg-transparent appearance-none">
                   <option value="" disabled>Especie</option>
                   <option value="Dog">Perro</option>
@@ -114,7 +114,7 @@ export function CreatePetScreen() {
           <div className="flex flex-col">
             <div className={`flex items-center justify-between border rounded-full px-4 py-3 bg-white ${errors.size ? 'border-red-500' : 'border-gray-400'}`}>
               <div className="flex items-center w-full">
-                <span className="text-[#5a32e1] mr-2">◀</span>
+                <span className="text-[#5a32e1] mr-2">▶</span>
                 <select id="size" value={formData.size} onChange={handleChange} className="w-full outline-none text-gray-500 bg-transparent appearance-none">
                   <option value="" disabled>Tamaño</option>
                   <option value="Small">Pequeño</option>
@@ -131,7 +131,7 @@ export function CreatePetScreen() {
           <div className="flex flex-col">
             <div className={`flex items-center justify-between border rounded-full px-4 py-3 bg-white ${errors.sex ? 'border-red-500' : 'border-gray-400'}`}>
               <div className="flex items-center w-full">
-                <span className="text-[#5a32e1] mr-2">◀</span>
+                <span className="text-[#5a32e1] mr-2">▶</span>
                 <select id="sex" value={formData.sex} onChange={handleChange} className="w-full outline-none text-gray-500 bg-transparent appearance-none">
                   <option value="" disabled>Sexo</option>
                   <option value="Male">Macho</option>
@@ -147,7 +147,7 @@ export function CreatePetScreen() {
           <div className="flex flex-col">
             <div className={`flex items-center justify-between border rounded-full px-4 py-3 bg-white ${errors.breed ? 'border-red-500' : 'border-gray-400'}`}>
               <div className="flex items-center w-full">
-                <span className="text-[#5a32e1] mr-2 opacity-50">◀</span>
+                <span className="text-[#5a32e1] mr-2 opacity-50">▶</span>
                 <input id="breed" type="text" placeholder="Raza" value={formData.breed} onChange={handleChange} className="w-full outline-none text-gray-700 bg-transparent" />
               </div>
               <span className="text-red-500 text-lg">*</span>
@@ -165,7 +165,7 @@ export function CreatePetScreen() {
           <div className="flex flex-col">
             <div className={`flex items-center justify-between border rounded-full px-4 py-3 bg-white ${errors.temperament ? 'border-red-500' : 'border-gray-400'}`}>
               <div className="flex items-center w-full">
-                <span className="text-[#5a32e1] mr-2">◀</span>
+                <span className="text-[#5a32e1] mr-2">▶</span>
                 <select id="temperament" value={formData.temperament} onChange={handleChange} className="w-full outline-none text-gray-500 bg-transparent appearance-none">
                   <option value="" disabled>Temperamento</option>
                   <option value="Calm">Tranquilo</option>
