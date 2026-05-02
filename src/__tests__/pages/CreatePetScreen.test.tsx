@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
-import { CreatePetScreen } from './CreatePetScreen';
+import { CreatePetScreen } from '../../pages/CreatePetScreen';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 
 // Mock fetch
