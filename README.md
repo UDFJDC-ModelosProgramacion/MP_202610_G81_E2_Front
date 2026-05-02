@@ -16,7 +16,7 @@ Debes tener instalado **Node.js** para ejecutar este proyecto. Si no lo tienes, 
 ### 2. Descargar el proyecto
 Necesitas descargar los archivos a tu computadora:
 - **Opción A (Con Git)**: Si tienes Git, abre tu terminal y clona el repositorio ejecutando:
-  `git clone <URL_DEL_REPOSITORIO>` (Asegúrate de reemplazar con el link del repositorio).
+  `git clone <https://github.com/UDFJDC-ModelosProgramacion/MP_202610_G81_E2_Front.git>` (Asegúrate de reemplazar con el link del repositorio).
 - **Opción B (Descarga normal)**: Ve a la página del repositorio, presiona el botón verde **"Code"** y luego **"Download ZIP"**. Al terminar, haz clic derecho sobre el archivo ZIP y extráelo (descomprímelo).
 
 ### 3. Abrir la terminal en la carpeta
