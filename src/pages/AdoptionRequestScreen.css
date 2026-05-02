@@ -1,0 +1,186 @@
+.adoption-page {
+  min-height: 100vh;
+  background: #f6f7fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.adoption-card {
+  width: min(920px, 100%);
+  background: #ffffff;
+  border: 1px solid #d9dee8;
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(16, 24, 40, 0.1);
+  overflow: hidden;
+}
+
+.adoption-header {
+  text-align: center;
+  padding: 26px 24px 18px;
+  border-bottom: 1px solid #a29BFE;
+}
+
+.adoption-header h1 {
+  color: #172033;
+  font-size: 26px;
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.adoption-header p {
+  color: #a28bfe;
+  font-size: 14px;
+  margin: 0;
+}
+
+.adoption-content {
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  gap: 28px;
+  padding: 28px;
+}
+
+.pet-preview {
+  background: #f9fafc;
+  border: 1px solid #d9dee8;
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.pet-image {
+  width: 100%;
+  height: 190px;
+  border: 1px solid #d8dde8;
+  border-radius: 8px;
+  background: #eef2f8;
+  color: #718096;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.pet-preview h2 {
+  color: #172033;
+  margin: 0 0 12px;
+  font-size: 24px;
+}
+
+.pet-info p {
+  margin: 8px 0;
+  color: #4b5565;
+  font-size: 14px;
+}
+
+.adoption-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.adoption-form label {
+  color: #4b5565;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 7px;
+}
+
+.adoption-form input,
+.adoption-form select,
+.adoption-form textarea {
+  width: 100%;
+  border: 1px solid #d6dbe6;
+  border-radius: 4px;
+  padding: 12px 13px;
+  font-size: 14px;
+  color: #172033;
+  margin-bottom: 16px;
+  background: #ffffff;
+  outline: none;
+}
+
+.adoption-form input:focus,
+.adoption-form select:focus,
+.adoption-form textarea:focus {
+  border-color: #172033;
+}
+
+.adoption-form textarea {
+  min-height: 125px;
+  resize: vertical;
+}
+
+.adoption-form button[type="submit"] {
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  background: #6c5ce7;
+  color: #ffffff;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.adoption-form button[type="submit"]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.message {
+  border-radius: 4px;
+  padding: 11px 12px;
+  font-size: 13px;
+  margin: 0 0 14px;
+}
+
+.message.success {
+  background: #eafaf0;
+  color: #167a3c;
+  border: 1px solid #b8e6c8;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.message.error {
+  background: #fff0f0;
+  color: #b42318;
+  border: 1px solid #f0b5b5;
+}
+
+.link-button {
+  border: none;
+  background: transparent;
+  color: #167a3c;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 13px;
+}
+
+.form-footer a {
+  color: #172033;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 760px) {
+  .adoption-content {
+    grid-template-columns: 1fr;
+  }
+}
