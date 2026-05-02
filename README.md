@@ -1,16 +1,42 @@
-# React + Vite
+# Frontend - Plataforma de Adopción de Mascotas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Guía paso a paso para iniciar la aplicación
 
-Currently, two official plugins are available:
+Para ejecutar la aplicación en tu computadora, sigue detalladamente los pasos a continuación.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 1. Pre-requisitos (Instalar Node.js)
+Debes tener instalado **Node.js** para ejecutar este proyecto. Si no lo tienes, descárgalo e instálalo según tu sistema operativo:
+- **Windows y Mac**: Ve a la página oficial de [Node.js](https://nodejs.org/) y descarga el instalador "Recomendado para la mayoría" (versión LTS). Sigue los pasos del instalador como con cualquier programa común.
+- **Linux (Ubuntu/Debian)**: Abre tu terminal e instala Node.js ejecutando:
+  ```bash
+  sudo apt update
+  sudo apt install nodejs npm
+  ```
 
-## React Compiler
+### 2. Descargar el proyecto
+Necesitas descargar los archivos a tu computadora:
+- **Opción A (Con Git)**: Si tienes Git, abre tu terminal y clona el repositorio ejecutando:
+  `git clone <URL_DEL_REPOSITORIO>` (Asegúrate de reemplazar con el link del repositorio).
+- **Opción B (Descarga normal)**: Ve a la página del repositorio, presiona el botón verde **"Code"** y luego **"Download ZIP"**. Al terminar, haz clic derecho sobre el archivo ZIP y extráelo (descomprímelo).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 3. Abrir la terminal en la carpeta
+Debes indicarle a la terminal que trabaje sobre la carpeta del proyecto (`MP_202610_G81_E2_Front`):
+- **Windows**: Entra a la carpeta del frontend, haz clic derecho en un espacio vacío y elige **"Abrir en Terminal"** (o en PowerShell).
+- **Mac**: Entra a la carpeta del frontend, haz clic derecho (o clic con dos dedos) sobre ella y selecciona **"Nueva terminal en la carpeta"**.
+- **Linux**: Entra a la carpeta del frontend, haz clic derecho y selecciona **"Abrir en la terminal"**.
 
-## Expanding the ESLint configuration
+### 4. Instalar las dependencias
+En la ventana negra (terminal) que acabas de abrir, escribe el siguiente comando y presiona `Enter`. Esto descargará lo necesario para que la interfaz funcione:
+```bash
+npm install
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 5. Iniciar la aplicación
+Cuando el paso anterior finalice, ejecuta el comando para prender la aplicación:
+```bash
+npm run dev
+```
+
+La terminal te mostrará un enlace (usualmente `http://localhost:5173/`). Solo cópialo y pégalo en tu navegador para ver la página web.
+
+> **Nota importante:** Recuerda que para iniciar sesión o guardar datos, tu aplicación del Backend (Spring Boot) también debe estar iniciada.
