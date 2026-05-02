@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { RegisterScreen } from './pages/RegisterScreen';
+import { CreatePetScreen } from './pages/CreatePetScreen';
 import './App.css'; // Mantenemos esta línea para que tus estilos sigan funcionando
 
 function App() {
@@ -18,12 +19,21 @@ function App() {
               >
                 Ir a Crear Cuenta
               </Link>
+              <Link 
+                to="/create-pet" 
+                className="text-[#5a32e1] hover:underline font-semibold mt-2"
+              >
+                Registrar Mascota
+              </Link>
             </div>
           } 
         />
 
         {/* Ruta de la pantalla de registro */}
         <Route path="/registro" element={<RegisterScreen />} />
+        
+        {/* Ruta de crear mascota */}
+        <Route path="/create-pet" element={<CreatePetScreen />} />
       </Routes>
     </Router>
   );
