@@ -34,7 +34,7 @@ describe('CreatePetScreen', () => {
     expect(screen.getByLabelText('Rescatada')).toBeInTheDocument();
     expect(screen.getByText('Temperamento')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('URL de la imagen (JPG, PNG)')).toBeInTheDocument();
-    expect(screen.getByLabelText('Acepta los términos y condiciones')).toBeInTheDocument();
+    expect(screen.getByLabelText(/Acepta los términos y condiciones/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Lugar de procedencia')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Edad / Fecha Nac.')).toBeInTheDocument();
     
@@ -88,7 +88,7 @@ describe('CreatePetScreen', () => {
     
     fireEvent.change(document.querySelector('#bornDate') as HTMLInputElement, { target: { value: '2023-01-01' } });
     
-    const termsCheck = screen.getByLabelText('Acepta los términos y condiciones');
+    const termsCheck = screen.getByLabelText(/Acepta los términos y condiciones/i);
     await user.click(termsCheck);
 
     const submitBtn = screen.getByRole('button', { name: /agregar mascota al refugio/i });
