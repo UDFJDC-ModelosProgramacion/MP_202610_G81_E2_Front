@@ -1,3 +1,4 @@
+/// <reference types="@testing-library/jest-dom" />
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
@@ -5,7 +6,7 @@ import { CreatePetScreen } from '../../pages/CreatePetScreen';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 
 // Mock fetch
-global.fetch = vi.fn();
+globalThis.fetch = vi.fn();
 
 const renderWithRouter = (ui: React.ReactElement) => {
   return render(<BrowserRouter>{ui}</BrowserRouter>);
@@ -54,17 +55,17 @@ describe('CreatePetScreen', () => {
     });
 
     // fetch shouldn't be called
-    expect(global.fetch).not.toHaveBeenCalled();
+    expect(globalThis.fetch).not.toHaveBeenCalled();
   });
 
   it('submits form successfully when all mandatory fields are filled', async () => {
-    (global.fetch as any).mockResolvedValueOnce({
+    (globalThis.fetch as any).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ id: 1, status: 'IN_SHELTER' })
     });
 
     // Mock alert to prevent errors during test
-    vi.spyOn(window, 'alert').mockImplementation(() => {});
+    vi.spyOn(globalThis, 'alert').mockImplementation(() => {});
 
     renderWithRouter(<CreatePetScreen />);
 
@@ -94,11 +95,11 @@ describe('CreatePetScreen', () => {
     await user.click(submitBtn);
 
     await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(globalThis.fetch).toHaveBeenCalledTimes(1);
     });
     
     // Check fetch payload
-    const fetchCall = (global.fetch as any).mock.calls[0];
+    const fetchCall = (globalThis.fetch as any).mock.calls[0];
     const fetchBody = JSON.parse(fetchCall[1].body);
     
     expect(fetchBody.name).toBe('Firulais');
