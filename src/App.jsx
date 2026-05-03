@@ -8,13 +8,16 @@ function App() {
     <Router>
       <Routes>
         {/* Ruta principal (Login temporal) */}
-        <Route 
-          path="/" 
+        <Route
+          path="/"
           element={
             <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
-              <h1 className="text-2xl font-bold text-[#2D3436] mb-4">Pantalla de Login (Próximamente)</h1>
-              <Link 
-                to="/registro" 
+              <h1 className="text-2xl font-bold text-[#2D3436] mb-4">
+                Pantalla de Login (Próximamente)
+              </h1>
+
+              <Link
+                to="/registro"
                 className="text-[#6C5CE7] hover:underline font-semibold"
               >
                 Ir a Crear Cuenta
@@ -26,7 +29,7 @@ function App() {
                 Registrar Mascota
               </Link>
             </div>
-          } 
+          }
         />
 
         {/* Ruta de la pantalla de registro */}
