@@ -2,7 +2,7 @@
 
 ## ⚠️ Arquitectura Full-Stack (¡Importante!)
 Este proyecto funciona en conjunto con una API de Backend. Para que la aplicación funcione correctamente y puedas iniciar sesión o interactuar con los datos, **es obligatorio descargar, instalar y ejecutar ambos repositorios simultáneamente**:
-1. El repositorio de Backend (Spring Boot) - [Back](https://github.com/UDFJDC-ModelosProgramacion/MP_202610_G81_E2_Back)
+1. El repositorio de Backend (Spring Boot) - [Backend](https://github.com/UDFJDC-ModelosProgramacion/MP_202610_G81_E2_Back)
 2. El repositorio de Frontend (React/Vite) - *Estás aquí*.
 
 ---
