@@ -78,7 +78,7 @@ describe('AdoptionRequestScreen', () => {
 
     // Fill in the comment field
     const commentField = screen.getByLabelText(/Motivo de adopción/i);
-    await userEvent.type(commentField, 'Quiero darle un hogar');
+    await userEvent.setup({ delay: null }).type(commentField, 'Quiero darle un hogar');
 
     // Submit the form
     const submitButton = screen.getByRole('button', { name: /Enviar solicitud de adopción/i });
@@ -97,7 +97,8 @@ describe('AdoptionRequestScreen', () => {
       expect(requestBody).toEqual({
         adopterId: 1,
         petId: 1,
-        comments: 'Quiero darle un hogar', // Should be 'comments' not 'comment'
+        comments: 'Quiero darle un hogar',
+        requestDate: expect.any(String)
       });
     });
   });

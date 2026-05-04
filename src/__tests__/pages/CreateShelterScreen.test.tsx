@@ -53,14 +53,14 @@ describe('CreateShelterScreen', () => {
 
     renderWithRouter(<CreateShelterScreen />);
 
-    await userEvent.type(screen.getByLabelText(/Nombre del shelter/i), 'Refugio Alpha');
-    await userEvent.type(screen.getByLabelText(/NIT/i), '123456789');
-    await userEvent.type(screen.getByLabelText(/Teléfono/i), '3001234567');
-    await userEvent.type(screen.getByLabelText(/Email/i), 'alpha@refugio.org');
-    await userEvent.type(screen.getByLabelText(/Ciudad/i), 'Bogotá');
-    await userEvent.type(screen.getByLabelText(/Dirección/i), 'Calle 123');
+    await userEvent.setup({ delay: null }).type(screen.getByLabelText(/Nombre del shelter/i), 'Refugio Alpha');
+    await userEvent.setup({ delay: null }).type(screen.getByLabelText(/NIT/i), '123456789');
+    await userEvent.setup({ delay: null }).type(screen.getByLabelText(/Teléfono/i), '3001234567');
+    await userEvent.setup({ delay: null }).type(screen.getByLabelText(/Email/i), 'alpha@refugio.org');
+    await userEvent.setup({ delay: null }).type(screen.getByLabelText(/Ciudad/i), 'Bogotá');
+    await userEvent.setup({ delay: null }).type(screen.getByLabelText(/Dirección/i), 'Calle 123');
 
-    await userEvent.click(screen.getByRole('button', { name: /guardar/i }));
+    await userEvent.setup({ delay: null }).click(screen.getByRole('button', { name: /guardar/i }));
 
     expect(fetchMock).toHaveBeenCalledWith(
       'http://localhost:8080/api/shelters',
