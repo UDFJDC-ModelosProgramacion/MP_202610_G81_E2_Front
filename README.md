@@ -1,8 +1,15 @@
 # Frontend - Plataforma de Adopción de Mascotas
 
-## 🚀 Guía paso a paso para iniciar la aplicación
+## ⚠️ Arquitectura Full-Stack (¡Importante!)
+Este proyecto funciona en conjunto con una API de Backend. Para que la aplicación funcione correctamente y puedas iniciar sesión o interactuar con los datos, **es obligatorio descargar, instalar y ejecutar ambos repositorios simultáneamente**:
+1. El repositorio de Backend (Spring Boot).
+2. El repositorio de Frontend (React/Vite) - *Estás aquí*.
 
-Para ejecutar la aplicación en tu computadora, sigue detalladamente los pasos a continuación.
+---
+
+## 🚀 Guía paso a paso para iniciar el Frontend
+
+Para ejecutar la interfaz visual en tu computadora, sigue detalladamente los pasos a continuación.
 
 ### 1. Pre-requisitos (Instalar Node.js)
 Debes tener instalado **Node.js** para ejecutar este proyecto. Si no lo tienes, descárgalo e instálalo según tu sistema operativo:
@@ -52,3 +59,4 @@ Se han implementado las siguientes historias de usuario:
 | HU04 Crear shelter | Karen Johanna Cabezas Herrera |
 | HU07 Crear mascota | Sergio Leonardo Moreno Granado |
 | HU10 Solicitar | Anderson Danilo Bonilla Martínez |
+| HU13 Crear Reseña | Leo |

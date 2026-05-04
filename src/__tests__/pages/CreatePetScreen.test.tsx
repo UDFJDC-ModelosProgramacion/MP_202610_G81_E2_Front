@@ -70,7 +70,7 @@ describe('CreatePetScreen', () => {
     renderWithRouter(<CreatePetScreen />);
 
     // Fill fields
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     
     await user.type(screen.getByPlaceholderText('Nombre'), 'Firulais');
     
@@ -117,7 +117,7 @@ describe('CreatePetScreen', () => {
 
     renderWithRouter(<CreatePetScreen />);
 
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     
     // Fill all required fields
     await user.type(screen.getByPlaceholderText('Nombre'), 'Buddy');

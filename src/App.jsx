@@ -5,6 +5,7 @@ import { RegisterScreen } from './pages/RegisterScreen';
 import { CreatePetScreen } from './pages/CreatePetScreen';
 import { CreateShelterScreen } from './pages/CreateShelterScreen';
 import AdoptionRequestScreen from './pages/AdoptionRequestScreen'; // <-- Nueva importación
+import CreateReviewScreen from './pages/CreateReviewScreen'; // Pantalla de reseñas
 
 import './App.css'; // Mantenemos esta línea para tus estilos globales
 
@@ -51,6 +52,14 @@ function App() {
                 >
                   Solicitar Adopción
                 </Link>
+
+                {/* Enlace para Crear Reseña */}
+                <Link 
+                  to="/crear-resena" 
+                  className="p-3 bg-[#6C5CE7] text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm border-2 border-purple-300"
+                >
+                  Crear Reseña de Adopción
+                </Link>
               </div>
             </div>
           }
@@ -67,6 +76,9 @@ function App() {
 
         {/* Ruta de solicitar adopción */}
         <Route path="/solicitar-adopcion" element={<AdoptionRequestScreen />} />
+
+        {/* Ruta de crear reseña de adopción */}
+        <Route path="/crear-resena" element={<CreateReviewScreen />} />
         
       </Routes>
     </Router>

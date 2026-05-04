@@ -45,10 +45,10 @@ describe('RegisterScreen', () => {
     const passwordInput = screen.getByLabelText('Contraseña');
     const confirmPasswordInput = screen.getByLabelText('Confirmar Contraseña');
     
-    await userEvent.type(nameInput, 'Juan Perez');
-    await userEvent.type(emailInput, 'juan@example.com');
-    await userEvent.type(passwordInput, '123456');
-    await userEvent.type(confirmPasswordInput, '1234567');
+    await userEvent.setup({ delay: null }).type(nameInput, 'Juan Perez');
+    await userEvent.setup({ delay: null }).type(emailInput, 'juan@example.com');
+    await userEvent.setup({ delay: null }).type(passwordInput, '123456');
+    await userEvent.setup({ delay: null }).type(confirmPasswordInput, '1234567');
     
     const submitButton = screen.getByRole('button', { name: /registrarse/i });
     fireEvent.click(submitButton);
@@ -71,10 +71,10 @@ describe('RegisterScreen', () => {
     const passwordInput = screen.getByLabelText('Contraseña');
     const confirmPasswordInput = screen.getByLabelText('Confirmar Contraseña');
 
-    await userEvent.type(nameInput, 'Ana López');
-    await userEvent.type(emailInput, 'ana@example.com');
-    await userEvent.type(passwordInput, 'password123');
-    await userEvent.type(confirmPasswordInput, 'password123');
+    await userEvent.setup({ delay: null }).type(nameInput, 'Ana López');
+    await userEvent.setup({ delay: null }).type(emailInput, 'ana@example.com');
+    await userEvent.setup({ delay: null }).type(passwordInput, 'password123');
+    await userEvent.setup({ delay: null }).type(confirmPasswordInput, 'password123');
 
     const submitButton = screen.getByRole('button', { name: /registrarse/i });
     fireEvent.click(submitButton);
@@ -118,10 +118,10 @@ describe('RegisterScreen', () => {
     const passwordInput = screen.getByLabelText('Contraseña');
     const confirmPasswordInput = screen.getByLabelText('Confirmar Contraseña');
 
-    await userEvent.type(nameInput, 'Ana López');
-    await userEvent.type(emailInput, 'existing@example.com');
-    await userEvent.type(passwordInput, 'password123');
-    await userEvent.type(confirmPasswordInput, 'password123');
+    await userEvent.setup({ delay: null }).type(nameInput, 'Ana López');
+    await userEvent.setup({ delay: null }).type(emailInput, 'existing@example.com');
+    await userEvent.setup({ delay: null }).type(passwordInput, 'password123');
+    await userEvent.setup({ delay: null }).type(confirmPasswordInput, 'password123');
 
     const submitButton = screen.getByRole('button', { name: /registrarse/i });
     fireEvent.click(submitButton);
@@ -141,10 +141,10 @@ describe('RegisterScreen', () => {
     const passwordInput = screen.getByLabelText('Contraseña');
     const confirmPasswordInput = screen.getByLabelText('Confirmar Contraseña');
 
-    await userEvent.type(nameInput, 'Ana López');
-    await userEvent.type(emailInput, 'ana@example.com');
-    await userEvent.type(passwordInput, 'password123');
-    await userEvent.type(confirmPasswordInput, 'password123');
+    await userEvent.setup({ delay: null }).type(nameInput, 'Ana López');
+    await userEvent.setup({ delay: null }).type(emailInput, 'ana@example.com');
+    await userEvent.setup({ delay: null }).type(passwordInput, 'password123');
+    await userEvent.setup({ delay: null }).type(confirmPasswordInput, 'password123');
 
     const submitButton = screen.getByRole('button', { name: /registrarse/i });
     fireEvent.click(submitButton);
