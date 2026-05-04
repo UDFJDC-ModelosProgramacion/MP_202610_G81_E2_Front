@@ -40,3 +40,15 @@ npm run dev
 La terminal te mostrará un enlace (usualmente `http://localhost:5173/`). Solo cópialo y pégalo en tu navegador para ver la página web.
 
 > **Nota importante:** Recuerda que para iniciar sesión o guardar datos, tu aplicación del Backend (Spring Boot) también debe estar iniciada.
+
+---
+
+## Implementaciones
+Se han implementado las siguientes historias de usuario:
+
+| Historia de usuario | Responsable |
+|---|---|
+| HU01 Registro | Sofía Rivera Fernández |
+| HU04 Crear shelter | Karen Johanna Cabezas Herrera |
+| HU07 Crear mascota | Sergio Leonardo Moreno Granado |
+| HU10 Solicitar | Anderson Danilo Bonilla Martínez |
