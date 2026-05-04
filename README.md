@@ -59,4 +59,4 @@ Se han implementado las siguientes historias de usuario:
 | HU04 Crear shelter | Karen Johanna Cabezas Herrera |
 | HU07 Crear mascota | Sergio Leonardo Moreno Granado |
 | HU10 Solicitar | Anderson Danilo Bonilla Martínez |
-| HU13 Crear Reseña | Leo |
+| HU13 Crear Reseña | Juan David Díaz Páez |
