@@ -1,121 +1,76 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+// Importamos todas tus pantallas
+import { RegisterScreen } from './pages/RegisterScreen';
+import { CreatePetScreen } from './pages/CreatePetScreen';
+import { CreateShelterScreen } from './pages/CreateShelterScreen';
+import AdoptionRequestScreen from './pages/AdoptionRequestScreen'; // <-- Nueva importación
+
+import './App.css'; // Mantenemos esta línea para tus estilos globales
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <Router>
+      <Routes>
+        {/* Ruta principal (Login y Panel temporal) */}
+        <Route
+          path="/"
+          element={
+            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 gap-4 p-6 text-center">
+              <div className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-4 max-w-sm w-full">
+                <div className="text-6xl mb-2">🐾</div>
+                <h1 className="text-2xl font-bold text-[#2D3436] mb-4">
+                  Panel Temporal
+                </h1>
 
-      <div className="ticks"></div>
+                <Link
+                  to="/registro"
+                  className="p-3 bg-[#6C5CE7] text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
+                >
+                  Registro de Cliente
+                </Link>
+                
+                <Link 
+                  to="/create-pet" 
+                  className="p-3 bg-pink-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
+                >
+                  Registrar Mascota
+                </Link>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
+                <Link 
+                  to="/create-shelter" 
+                  className="p-3 bg-orange-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
                 >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+                  Registrar Shelter
+                </Link>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+                {/* Nuevo enlace para Solicitar Adopción */}
+                <Link 
+                  to="/solicitar-adopcion" 
+                  className="p-3 bg-green-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
+                >
+                  Solicitar Adopción
+                </Link>
+              </div>
+            </div>
+          }
+        />
+
+        {/* Ruta de la pantalla de registro */}
+        <Route path="/registro" element={<RegisterScreen />} />
+        
+        {/* Ruta de crear mascota */}
+        <Route path="/create-pet" element={<CreatePetScreen />} />
+
+        {/* Ruta de crear shelter */}
+        <Route path="/create-shelter" element={<CreateShelterScreen />} />
+
+        {/* Ruta de solicitar adopción */}
+        <Route path="/solicitar-adopcion" element={<AdoptionRequestScreen />} />
+        
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
