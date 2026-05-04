@@ -55,4 +55,104 @@ describe('RegisterScreen', () => {
 
     expect(await screen.findByText('Las contraseñas no coinciden.')).toBeInTheDocument();
   });
+
+  it('submits to the correct API endpoint with correct user registration payload', async () => {
+    (globalThis.fetch as any).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ id: 1, name: 'Ana López', email: 'ana@example.com' })
+    });
+
+    vi.spyOn(globalThis, 'alert').mockImplementation(() => {});
+
+    renderWithRouter(<RegisterScreen />);
+
+    const nameInput = screen.getByLabelText('Nombre Completo');
+    const emailInput = screen.getByLabelText('Correo Electrónico');
+    const passwordInput = screen.getByLabelText('Contraseña');
+    const confirmPasswordInput = screen.getByLabelText('Confirmar Contraseña');
+
+    await userEvent.type(nameInput, 'Ana López');
+    await userEvent.type(emailInput, 'ana@example.com');
+    await userEvent.type(passwordInput, 'password123');
+    await userEvent.type(confirmPasswordInput, 'password123');
+
+    const submitButton = screen.getByRole('button', { name: /registrarse/i });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(globalThis.fetch).toHaveBeenCalledWith(
+        'http://localhost:8080/api/users',
+        expect.objectContaining({
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: 'Ana López',
+            email: 'ana@example.com',
+            password: 'password123'
+          })
+        })
+      );
+    });
+
+    // Verify complete payload structure
+    const fetchCall = (globalThis.fetch as any).mock.calls[0];
+    const payload = JSON.parse(fetchCall[1].body);
+    
+    expect(payload).toHaveProperty('name', 'Ana López');
+    expect(payload).toHaveProperty('email', 'ana@example.com');
+    expect(payload).toHaveProperty('password', 'password123');
+    expect(payload).not.toHaveProperty('confirmPassword');
+  });
+
+  it('handles duplicate email error with 409 status', async () => {
+    (globalThis.fetch as any).mockResolvedValueOnce({
+      ok: false,
+      status: 409,
+      json: async () => ({ error: 'Email already registered' })
+    });
+
+    renderWithRouter(<RegisterScreen />);
+
+    const nameInput = screen.getByLabelText('Nombre Completo');
+    const emailInput = screen.getByLabelText('Correo Electrónico');
+    const passwordInput = screen.getByLabelText('Contraseña');
+    const confirmPasswordInput = screen.getByLabelText('Confirmar Contraseña');
+
+    await userEvent.type(nameInput, 'Ana López');
+    await userEvent.type(emailInput, 'existing@example.com');
+    await userEvent.type(passwordInput, 'password123');
+    await userEvent.type(confirmPasswordInput, 'password123');
+
+    const submitButton = screen.getByRole('button', { name: /registrarse/i });
+    fireEvent.click(submitButton);
+
+    expect(await screen.findByText('Este correo ya se encuentra registrado.')).toBeInTheDocument();
+  });
+
+  it('handles connection errors gracefully', async () => {
+    (globalThis.fetch as any).mockRejectedValueOnce(new Error('Network error'));
+
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    renderWithRouter(<RegisterScreen />);
+
+    const nameInput = screen.getByLabelText('Nombre Completo');
+    const emailInput = screen.getByLabelText('Correo Electrónico');
+    const passwordInput = screen.getByLabelText('Contraseña');
+    const confirmPasswordInput = screen.getByLabelText('Confirmar Contraseña');
+
+    await userEvent.type(nameInput, 'Ana López');
+    await userEvent.type(emailInput, 'ana@example.com');
+    await userEvent.type(passwordInput, 'password123');
+    await userEvent.type(confirmPasswordInput, 'password123');
+
+    const submitButton = screen.getByRole('button', { name: /registrarse/i });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(consoleSpy).toHaveBeenCalledWith('Error de conexión:', expect.any(Error));
+    });
+
+    consoleSpy.mockRestore();
+  });
 });

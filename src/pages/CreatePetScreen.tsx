@@ -14,6 +14,7 @@ interface PetFormData {
   bornDate: string;
   isRescued: boolean;
   termsAccepted: boolean;
+  specificNeeds: string;
 }
 
 export function CreatePetScreen() {
@@ -31,7 +32,8 @@ export function CreatePetScreen() {
     origin: '',
     bornDate: '',
     isRescued: false,
-    termsAccepted: false
+    termsAccepted: false,
+    specificNeeds: ''
   });
 
   // 3. Tipamos el estado de errores como un objeto de strings
@@ -74,7 +76,17 @@ export function CreatePetScreen() {
 
     try {
       const payload = {
-        ...formData,
+        name: formData.name,
+        species: formData.species,
+        breed: formData.breed,
+        bornDate: formData.bornDate,
+        sex: formData.sex,
+        size: formData.size,
+        temperament: formData.temperament,
+        specificNeeds: formData.specificNeeds,
+        originLocation: formData.origin,
+        isRescued: formData.isRescued,
+        photo: formData.imageUrl,
         shelterId: 1 
       };
 
@@ -87,6 +99,8 @@ export function CreatePetScreen() {
       if (response.ok) {
         setIsSuccess(true);
       } else {
+        const errorData = await response.json().catch(() => ({}));
+        console.error('Error response:', errorData);
         alert('Ocurrió un error al registrar la mascota.');
       }
     } catch (error) {
@@ -242,6 +256,20 @@ export function CreatePetScreen() {
                   onChange={handleChange}
                   className="w-full px-4 py-3 bg-white border border-[#DCDDE1] rounded-lg focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors"
                   placeholder="Raza"
+                />
+              </div>
+
+              <div>
+                <label className="block font-semibold text-[#2D3436] mb-2" htmlFor="specificNeeds">
+                  Necesidades Especiales
+                </label>
+                <input
+                  id="specificNeeds"
+                  type="text"
+                  value={formData.specificNeeds}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-white border border-[#DCDDE1] rounded-lg focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors"
+                  placeholder="Necesidades Especiales"
                 />
               </div>
 

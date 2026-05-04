@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const API_BASE_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:8080/api';
+
 interface ShelterFormData {
   name: string;
   nit: string;
@@ -51,6 +53,7 @@ export function CreateShelterScreen() {
 
     if (!formData.name) newErrors.name = 'Este campo es obligatorio';
     if (!formData.nit) newErrors.nit = 'Este campo es obligatorio';
+    if (!formData.phone) newErrors.phone = 'Este campo es obligatorio';
     if (!formData.city) newErrors.city = 'Este campo es obligatorio';
     if (!formData.address) newErrors.address = 'Este campo es obligatorio';
     
@@ -66,12 +69,24 @@ export function CreateShelterScreen() {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/shelters', {
+      const payload = {
+        shelterName: formData.name,
+        nit: formData.nit,
+        phoneNumber: formData.phone,
+        address: formData.address,
+        status: formData.status,
+        city: formData.city,
+        locationDetails: formData.locationDetails,
+        description: formData.description,
+        websiteUrl: formData.website
+      };
+
+      const response = await fetch(`${API_BASE_URL}/shelters`, {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json' 
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
         });
 
       if (response.ok) {
@@ -162,7 +177,7 @@ export function CreateShelterScreen() {
 
               <div>
                 <label htmlFor="phone" className="block font-semibold text-[#2D3436] mb-2">
-                  📞 Teléfono
+                  📞 Teléfono <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="phone"
@@ -170,9 +185,12 @@ export function CreateShelterScreen() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white border border-[#DCDDE1] rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
+                  className={`w-full px-4 py-3 bg-white border ${
+                    errors.phone ? 'border-red-500 bg-red-50' : 'border-[#DCDDE1]'
+                  } rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors`}
                   placeholder="Ingrese el teléfono"
                 />
+                {errors.phone && <p className="mt-1 text-red-500 text-sm font-semibold">{errors.phone}</p>}
               </div>
 
               <div>
