@@ -6,6 +6,7 @@ import { CreatePetScreen } from './pages/CreatePetScreen';
 import { CreateShelterScreen } from './pages/CreateShelterScreen';
 import AdoptionRequestScreen from './pages/AdoptionRequestScreen'; // <-- Nueva importación
 import CreateReviewScreen from './pages/CreateReviewScreen'; // Pantalla de reseñas
+import { LoginScreen } from './pages/LoginScreen'; // Pantalla de login
 
 import './App.css'; // Mantenemos esta línea para tus estilos globales
 
@@ -23,6 +24,13 @@ function App() {
                 <h1 className="text-2xl font-bold text-[#2D3436] mb-4">
                   Panel Temporal
                 </h1>
+
+                <Link
+                  to="/login"
+                  className="p-3 bg-blue-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
+                >
+                  Iniciar Sesión
+                </Link>
 
                 <Link
                   to="/registro"
@@ -67,6 +75,9 @@ function App() {
 
         {/* Ruta de la pantalla de registro */}
         <Route path="/registro" element={<RegisterScreen />} />
+        
+        {/* Ruta de login */}
+        <Route path="/login" element={<LoginScreen />} />
         
         {/* Ruta de crear mascota */}
         <Route path="/create-pet" element={<CreatePetScreen />} />

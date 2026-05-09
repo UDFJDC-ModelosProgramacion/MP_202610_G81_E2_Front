@@ -22,7 +22,7 @@ export function RegisterScreen() {
 
     if (!formData.name) newErrors.name = 'El nombre es requerido.';
     if (!formData.email) newErrors.email = 'El correo es requerido.';
-    
+
     if (formData.password.length < 6) {
       newErrors.password = 'La contraseña debe tener al menos 6 caracteres.';
     }
@@ -49,7 +49,7 @@ export function RegisterScreen() {
 
       if (response.ok) {
         alert('Registro exitoso. ¡Bienvenido!');
-        navigate('/'); 
+        navigate('/');
       } else if (response.status === 409 || response.status === 400) {
         setErrors({ email: 'Este correo ya se encuentra registrado.' });
       }
@@ -74,9 +74,8 @@ export function RegisterScreen() {
             type="text"
             value={formData.name}
             onChange={handleChange}
-            className={`w-full p-3 border rounded-lg focus:outline-none transition-colors ${
-              errors.name ? 'border-[#D63031] bg-red-50' : 'border-[#DCDDE1] focus:border-[#6C5CE7]'
-            }`}
+            className={`w-full p-3 border rounded-lg focus:outline-none transition-colors ${errors.name ? 'border-[#D63031] bg-red-50' : 'border-[#DCDDE1] focus:border-[#6C5CE7]'
+              }`}
             placeholder="Ana López"
           />
           {errors.name && <span className="text-xs font-semibold text-[#D63031] mt-1">{errors.name}</span>}
@@ -89,9 +88,8 @@ export function RegisterScreen() {
             type="email"
             value={formData.email}
             onChange={handleChange}
-            className={`w-full p-3 border rounded-lg focus:outline-none transition-colors ${
-              errors.email ? 'border-[#D63031] bg-red-50' : 'border-[#DCDDE1] focus:border-[#6C5CE7]'
-            }`}
+            className={`w-full p-3 border rounded-lg focus:outline-none transition-colors ${errors.email ? 'border-[#D63031] bg-red-50' : 'border-[#DCDDE1] focus:border-[#6C5CE7]'
+              }`}
             placeholder="correo@ejemplo.com"
           />
           {errors.email && <span className="text-xs font-semibold text-[#D63031] mt-1">{errors.email}</span>}
@@ -104,9 +102,8 @@ export function RegisterScreen() {
             type="password"
             value={formData.password}
             onChange={handleChange}
-            className={`w-full p-3 border rounded-lg focus:outline-none transition-colors ${
-              errors.password ? 'border-[#D63031] bg-red-50' : 'border-[#DCDDE1] focus:border-[#6C5CE7]'
-            }`}
+            className={`w-full p-3 border rounded-lg focus:outline-none transition-colors ${errors.password ? 'border-[#D63031] bg-red-50' : 'border-[#DCDDE1] focus:border-[#6C5CE7]'
+              }`}
             placeholder="••••••••"
           />
           {errors.password && <span className="text-xs font-semibold text-[#D63031] mt-1">{errors.password}</span>}
@@ -119,9 +116,8 @@ export function RegisterScreen() {
             type="password"
             value={formData.confirmPassword}
             onChange={handleChange}
-            className={`w-full p-3 border rounded-lg focus:outline-none transition-colors ${
-              errors.confirmPassword ? 'border-[#D63031] bg-red-50' : 'border-[#DCDDE1] focus:border-[#6C5CE7]'
-            }`}
+            className={`w-full p-3 border rounded-lg focus:outline-none transition-colors ${errors.confirmPassword ? 'border-[#D63031] bg-red-50' : 'border-[#DCDDE1] focus:border-[#6C5CE7]'
+              }`}
             placeholder="••••••••"
           />
           {errors.confirmPassword && <span className="text-xs font-semibold text-[#D63031] mt-1">{errors.confirmPassword}</span>}
