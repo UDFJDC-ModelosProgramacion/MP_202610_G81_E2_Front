@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Tipos basados en PetDetailDTO del backend
 export interface MedicalHistory {
@@ -28,6 +29,7 @@ export interface PetDetail {
 }
 
 export const PetListScreen: React.FC = () => {
+    const navigate = useNavigate();
     const [pets, setPets] = useState<PetDetail[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -54,8 +56,12 @@ export const PetListScreen: React.FC = () => {
             }
             const data = await response.json();
             setPets(data);
-        } catch (err: any) {
-            setError(err.message || 'Error desconocido');
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('Error desconocido');
+            }
         } finally {
             setLoading(false);
         }
@@ -63,6 +69,7 @@ export const PetListScreen: React.FC = () => {
 
     useEffect(() => {
         fetchPets();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleSearch = (e: React.FormEvent) => {
@@ -165,7 +172,7 @@ export const PetListScreen: React.FC = () => {
                                     </div>
                                     <button 
                                         className="w-full border-2 border-[#6C5CE7] text-[#6C5CE7] hover:bg-[#6C5CE7] hover:text-white transition-colors py-2 rounded-lg font-semibold"
-                                        onClick={() => window.location.href = `/solicitar-adopcion?petId=${pet.id}`}
+                                        onClick={() => navigate(`/solicitar-adopcion?petId=${pet.id}`)}
                                     >
                                         Solicitar Adopción
                                     </button>
