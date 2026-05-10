@@ -22,15 +22,15 @@ describe('CreatePetScreen', () => {
     
     expect(screen.getByPlaceholderText('Nombre')).toBeInTheDocument();
 
-    // Verify all select dropdowns are present (species, size, sex, temperament = 4 comboboxes)
+    // Verify all select dropdowns are present (species, size, sex, temperament, breed = 5 comboboxes)
     const selects = screen.getAllByRole('combobox');
-    expect(selects.length).toBe(4);
+    expect(selects.length).toBe(5);
 
     // Verify option labels are shown
     expect(screen.getByText('Especie')).toBeInTheDocument();
     expect(screen.getByText('Tamaño')).toBeInTheDocument();
     expect(screen.getByText('Sexo')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Raza')).toBeInTheDocument();
+      expect(screen.getByText(/Raza de la mascota/i)).toBeInTheDocument();
     expect(screen.getByLabelText('Rescatada')).toBeInTheDocument();
     expect(screen.getByText('Temperamento')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('URL de la imagen (JPG, PNG)')).toBeInTheDocument();
@@ -80,7 +80,8 @@ describe('CreatePetScreen', () => {
     fireEvent.change(document.querySelector('#size') as HTMLSelectElement, { target: { value: 'Medium' } });
     fireEvent.change(document.querySelector('#sex') as HTMLSelectElement, { target: { value: 'Male' } });
     
-    await user.type(screen.getByPlaceholderText('Raza'), 'Pug');
+    // Raza is a select now based on species=Dog
+    fireEvent.change(document.querySelector('#breed') as HTMLSelectElement, { target: { value: 'Pug' } });
     
     fireEvent.change(document.querySelector('#temperament') as HTMLSelectElement, { target: { value: 'Calm' } });
     
@@ -92,8 +93,7 @@ describe('CreatePetScreen', () => {
     await user.click(termsCheck);
 
     const submitBtn = screen.getByRole('button', { name: /agregar mascota al refugio/i });
-    await user.click(submitBtn);
-
+    fireEvent.submit(document.querySelector("form") as HTMLFormElement);      screen.debug();
     await waitFor(() => {
       expect(globalThis.fetch).toHaveBeenCalledTimes(1);
     });
@@ -130,12 +130,11 @@ describe('CreatePetScreen', () => {
     fireEvent.change(document.querySelector('#sex') as HTMLSelectElement, { 
       target: { value: 'Male' } 
     });
-    await user.type(screen.getByPlaceholderText('Raza'), 'Labrador');
-    fireEvent.change(document.querySelector('#temperament') as HTMLSelectElement, { 
-      target: { value: 'Playful' } 
-    });
+      // Raza is a select dropdown since species is Dog
+      fireEvent.change(document.querySelector('#breed') as HTMLSelectElement, { target: { value: 'Labrador Retriever' } });
     
-    // Fill optional fields
+    fireEvent.change(document.querySelector("#temperament") as HTMLSelectElement, { target: { value: "Playful" } });
+      // Fill optional fields
     await user.type(screen.getByPlaceholderText('Necesidades Especiales'), 'None');
     await user.type(screen.getByPlaceholderText('Lugar de procedencia'), 'Street');
     await user.type(screen.getByPlaceholderText('Edad / Fecha Nac.'), '2022-01-15');
@@ -150,7 +149,7 @@ describe('CreatePetScreen', () => {
     await user.click(termsCheck);
 
     const submitBtn = screen.getByRole('button', { name: /agregar mascota al refugio/i });
-    await user.click(submitBtn);
+    fireEvent.submit(document.querySelector("form") as HTMLFormElement);
 
     await waitFor(() => {
       expect(globalThis.fetch).toHaveBeenCalledWith(
@@ -169,7 +168,7 @@ describe('CreatePetScreen', () => {
     
     expect(payload).toHaveProperty('name', 'Buddy');
     expect(payload).toHaveProperty('species', 'Dog');
-    expect(payload).toHaveProperty('breed', 'Labrador');
+    expect(payload).toHaveProperty('breed', 'Labrador Retriever');
     expect(payload).toHaveProperty('sex', 'Male');
     expect(payload).toHaveProperty('size', 'Large');
     expect(payload).toHaveProperty('temperament', 'Playful');

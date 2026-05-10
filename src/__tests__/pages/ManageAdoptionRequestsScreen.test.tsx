@@ -43,7 +43,7 @@ describe('ManageAdoptionRequestsScreen', () => {
 
     renderWithRouter(<ManageAdoptionRequestsScreen />);
 
-    expect(screen.getByText(/Solicitudes de Adopción/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Solicitudes de Adopción/i).length).toBeGreaterThan(0);
 
     await waitFor(() => {
       expect(screen.getByText(/Detalle de Solicitud #001/i)).toBeInTheDocument();

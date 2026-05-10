@@ -41,17 +41,17 @@ function App() {
                 </Link>
                 
                 <Link 
-                  to="/create-pet" 
-                  className="p-3 bg-pink-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
-                >
-                  Registrar Mascota
-                </Link>
-
-                <Link 
                   to="/create-shelter" 
                   className="p-3 bg-orange-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
                 >
                   Registrar Shelter
+                </Link>
+
+                <Link 
+                  to="/create-pet" 
+                  className="p-3 bg-pink-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
+                >
+                  Registrar Mascota
                 </Link>
 
                 {/* Nuevo enlace para Solicitar Adopción */}

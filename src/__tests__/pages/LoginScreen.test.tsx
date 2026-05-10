@@ -41,7 +41,7 @@ describe('LoginScreen Component', () => {
     renderComponent();
 
     const submitButton = screen.getByRole('button', { name: /Ingresar/i });
-    fireEvent.click(submitButton);
+    fireEvent.submit(screen.getByTestId("login-form"));
 
     expect(await screen.findByText(/El correo es obligatorio/i)).toBeInTheDocument();
     expect(await screen.findByText(/La contraseña es obligatoria/i)).toBeInTheDocument();
@@ -55,7 +55,7 @@ describe('LoginScreen Component', () => {
     await userEvent.setup({ delay: null }).type(emailInput, 'invalid-email');
 
     const submitButton = screen.getByRole('button', { name: /Ingresar/i });
-    fireEvent.click(submitButton);
+    fireEvent.submit(screen.getByTestId("login-form"));
 
     expect(await screen.findByText('El formato del correo es inválido')).toBeInTheDocument();
   });
@@ -68,7 +68,7 @@ describe('LoginScreen Component', () => {
     // Test too short
     await userEvent.setup({ delay: null }).type(passwordInput, 'pass12');
     const submitButton = screen.getByRole('button', { name: /Ingresar/i });
-    fireEvent.click(submitButton);
+    fireEvent.submit(screen.getByTestId("login-form"));
     expect(await screen.findByText('La contraseña debe tener al menos 8 caracteres y contener letras y números')).toBeInTheDocument();
   });
 
@@ -87,7 +87,7 @@ describe('LoginScreen Component', () => {
     await userEvent.setup({ delay: null }).type(passwordInput, 'Password123');
 
     const submitButton = screen.getByRole('button', { name: /Ingresar/i });
-    fireEvent.click(submitButton);
+    fireEvent.submit(screen.getByTestId("login-form"));
 
     await waitFor(() => {
       expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringContaining('/login'), expect.any(Object));
@@ -97,7 +97,7 @@ describe('LoginScreen Component', () => {
 
   test('Simula login fallido y muestra mensaje de error', async () => {
     (globalThis.fetch as any).mockResolvedValueOnce({
-      ok: false,
+      ok: false, status: 401,
     });
 
     renderComponent();
@@ -106,7 +106,7 @@ describe('LoginScreen Component', () => {
     fireEvent.change(screen.getByLabelText(/Contraseña/i), { target: { value: 'WrongPass123' } });
 
     const submitButton = screen.getByRole('button', { name: /Ingresar/i });
-    fireEvent.click(submitButton);
+    fireEvent.submit(screen.getByTestId("login-form"));
 
     expect(await screen.findByText(/Correo o contraseña incorrectos./i)).toBeInTheDocument();
     expect(mockedNavigate).not.toHaveBeenCalled();

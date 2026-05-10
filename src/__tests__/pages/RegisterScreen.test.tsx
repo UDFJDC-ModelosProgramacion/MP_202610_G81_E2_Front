@@ -88,7 +88,9 @@ describe('RegisterScreen', () => {
           body: JSON.stringify({
             name: 'Ana López',
             email: 'ana@example.com',
-            password: 'password123'
+            password: 'password123',
+            phoneNumber: '',
+            city: ''
           })
         })
       );

@@ -31,6 +31,14 @@ pipeline {
             }
         }
 
+        stage('Pruebas y Cobertura') {
+            steps {
+                // Instala librería de cobertura para vite (en caso que falte) y ejecuta las pruebas de cobertura
+                // También evitamos parar el build si alguna prueba fallara para que se muestre en sonar
+                sh 'npm test -- --run --coverage || exit 1'
+            }
+        }
+
         stage('Análisis con SonarQube') {
             environment {
                 scannerHome = tool 'SonarQubeScanner'
