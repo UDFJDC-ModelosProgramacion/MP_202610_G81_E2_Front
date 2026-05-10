@@ -6,6 +6,7 @@ import { CreatePetScreen } from './pages/CreatePetScreen';
 import { CreateShelterScreen } from './pages/CreateShelterScreen';
 import AdoptionRequestScreen from './pages/AdoptionRequestScreen'; // <-- Nueva importación
 import CreateReviewScreen from './pages/CreateReviewScreen'; // Pantalla de reseñas
+import PetReviewsPage from './pages/PetReviewScreen'; // Pantalla de visualización de reseñas (HU14)
 import { LoginScreen } from './pages/LoginScreen'; // Pantalla de login
 import ManageAdoptionRequestsScreen from './pages/ManageAdoptionRequestsScreen'; //Aprobación o rechazo de solicitudes de adopción
 import PetListScreen from './pages/PetListScreen'; // Listar mascotas
@@ -85,6 +86,14 @@ function App() {
                 >
                   Crear Reseña de Adopción
                 </Link>
+
+                {/* Enlace para Ver Reseñas (HU14) */}
+                <Link 
+                  to="/ver-resenas" 
+                  className="p-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
+                >
+                  Ver Reseñas de Mascotas
+                </Link>
               </div>
             </div>
           }
@@ -113,6 +122,9 @@ function App() {
 
         {/* Ruta de listar mascotas */}
         <Route path="/listar-mascotas" element={<PetListScreen />} />
+
+        {/* Ruta de ver reseñas de mascotas (HU14) */}
+        <Route path="/ver-resenas" element={<PetReviewsPage />} />
         
       </Routes>
     </Router>
