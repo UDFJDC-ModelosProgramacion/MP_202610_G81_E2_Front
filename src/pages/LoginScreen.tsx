@@ -12,18 +12,27 @@ export function LoginScreen() {
     e.preventDefault();
     const newErrors: { email?: string; password?: string } = {};
 
-    if (!email) newErrors.email = 'El correo es obligatorio';
-    if (!password) newErrors.password = 'La contraseña es obligatoria';
+    if (!email) {
+      newErrors.email = 'El correo es obligatorio';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = 'El formato del correo es inválido';
+    }
+
+    if (!password) {
+      newErrors.password = 'La contraseña es obligatoria';
+    } else if (!/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/.test(password)) {
+      newErrors.password = 'La contraseña debe tener al menos 8 caracteres y contener letras y números';
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-    
+
     setErrors({});
 
     try {
-      const response = await fetch(`${(import.meta as any).env.VITE_API_URL || 'http://localhost:8080/api'}/login`, {
+      const response = await fetch(`${(import.meta as any).env.VITE_API_URL || 'http://localhost:8080/api'}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -33,7 +42,7 @@ export function LoginScreen() {
       });
 
       if (response.ok) {
-        navigate('/home');
+        navigate('/');
       } else if (response.status === 401 || response.status === 403) {
         setErrors({ general: 'Correo o contraseña incorrectos.' });
       } else {
@@ -49,7 +58,7 @@ export function LoginScreen() {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <div className="bg-gradient-to-r from-purple-600 to-orange-500 py-8 px-6 shadow-md relative">
         <div className="max-w-3xl mx-auto flex items-center">
-          <button 
+          <button
             onClick={() => navigate(-1)}
             className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors flex items-center gap-2 absolute left-6"
           >
@@ -79,9 +88,8 @@ export function LoginScreen() {
                   setEmail(e.target.value);
                   if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
                 }}
-                className={`w-full px-4 py-3 bg-white border ${
-                  errors.email ? 'border-red-500 bg-red-50' : 'border-[#DCDDE1]'
-                } rounded-lg focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors`}
+                className={`w-full px-4 py-3 bg-white border ${errors.email ? 'border-red-500 bg-red-50' : 'border-[#DCDDE1]'
+                  } rounded-lg focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors`}
                 placeholder="Ingresa tu correo"
               />
               {errors.email && <p className="mt-1 text-red-500 text-sm font-semibold">{errors.email}</p>}
@@ -99,9 +107,8 @@ export function LoginScreen() {
                   setPassword(e.target.value);
                   if (errors.password) setErrors((prev) => ({ ...prev, password: undefined }));
                 }}
-                className={`w-full px-4 py-3 bg-white border ${
-                  errors.password ? 'border-red-500 bg-red-50' : 'border-[#DCDDE1]'
-                } rounded-lg focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors`}
+                className={`w-full px-4 py-3 bg-white border ${errors.password ? 'border-red-500 bg-red-50' : 'border-[#DCDDE1]'
+                  } rounded-lg focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors`}
                 placeholder="Ingresa tu contraseña"
               />
               {errors.password && <p className="mt-1 text-red-500 text-sm font-semibold">{errors.password}</p>}

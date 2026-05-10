@@ -6,7 +6,9 @@ export function RegisterScreen() {
     name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    phoneNumber: '',
+    city: ''
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -43,15 +45,19 @@ export function RegisterScreen() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          password: formData.password
+          password: formData.password,
+          phoneNumber: formData.phoneNumber,
+          city: formData.city
         }),
       });
 
       if (response.ok) {
         alert('Registro exitoso. ¡Bienvenido!');
-        navigate('/');
-      } else if (response.status === 409 || response.status === 400) {
+        navigate('/login');
+      } else if (response.status === 409 || response.status === 400 || response.status === 412) {
         setErrors({ email: 'Este correo ya se encuentra registrado.' });
+      } else {
+        alert('Ocurrió un error inesperado. Por favor, intenta de nuevo.');
       }
     } catch (error) {
       console.error('Error de conexión:', error);
@@ -121,6 +127,30 @@ export function RegisterScreen() {
             placeholder="••••••••"
           />
           {errors.confirmPassword && <span className="text-xs font-semibold text-[#D63031] mt-1">{errors.confirmPassword}</span>}
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <label className="text-sm font-semibold text-[#2D3436]" htmlFor="phoneNumber">Teléfono</label>
+          <input
+            id="phoneNumber"
+            type="tel"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            className="w-full p-3 border border-[#DCDDE1] rounded-lg focus:outline-none focus:border-[#6C5CE7] transition-colors"
+            placeholder="3001234567"
+          />
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <label className="text-sm font-semibold text-[#2D3436]" htmlFor="city">Ciudad</label>
+          <input
+            id="city"
+            type="text"
+            value={formData.city}
+            onChange={handleChange}
+            className="w-full p-3 border border-[#DCDDE1] rounded-lg focus:outline-none focus:border-[#6C5CE7] transition-colors"
+            placeholder="Bogotá"
+          />
         </div>
       </form>
 

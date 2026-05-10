@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ANIMAL_BREEDS } from '../constants/breeds';
 
 // 1. Definimos la interfaz de los datos para TypeScript
 interface PetFormData {
   name: string;
   species: string;
+  customSpecies: string;
   size: string;
   sex: string;
   breed: string;
+  customBreed: string;
   temperament: string;
   imageUrl: string;
   origin: string;
@@ -24,9 +27,11 @@ export function CreatePetScreen() {
   const [formData, setFormData] = useState<PetFormData>({
     name: '',
     species: '',
+    customSpecies: '',
     size: '',
     sex: '',
     breed: '',
+    customBreed: '',
     temperament: '',
     imageUrl: '',
     origin: '',
@@ -50,7 +55,20 @@ export function CreatePetScreen() {
     const isCheckbox = type === 'checkbox';
     const val = isCheckbox ? (e.target as HTMLInputElement).checked : value;
     
-    setFormData((prev) => ({ ...prev, [id]: val }));
+    setFormData((prev) => {
+      const updated = { ...prev, [id]: val };
+      // Reiniciar raza y campos custom si cambia la especie
+      if (id === 'species') {
+        updated.breed = '';
+        updated.customSpecies = '';
+        updated.customBreed = '';
+      }
+      // Reiniciar raza custom si cambia la raza
+      if (id === 'breed') {
+        updated.customBreed = '';
+      }
+      return updated as PetFormData;
+    });
     
     if (errors[id]) {
       setErrors((prev) => ({ ...prev, [id]: '' }));
@@ -64,9 +82,18 @@ export function CreatePetScreen() {
 
     if (!formData.name) newErrors.name = 'Requerido';
     if (!formData.species) newErrors.species = 'Requerido';
+    if (formData.species === 'Other' && !formData.customSpecies) newErrors.customSpecies = 'Requerido';
+    
     if (!formData.size) newErrors.size = 'Requerido';
     if (!formData.sex) newErrors.sex = 'Requerido';
     if (!formData.temperament) newErrors.temperament = 'Requerido';
+    
+    if (formData.species !== 'Other' && !formData.breed) newErrors.breed = 'Requerido';
+    if ((formData.species === 'Other' || formData.breed === 'Otra') && !formData.customBreed) {
+      newErrors.customBreed = 'Requerido';
+    }
+    
+    if (!formData.imageUrl) newErrors.imageUrl = 'Requerido';
     if (!formData.termsAccepted) newErrors.termsAccepted = 'Requerido';
 
     if (Object.keys(newErrors).length > 0) {
@@ -75,10 +102,13 @@ export function CreatePetScreen() {
     }
 
     try {
+      const payloadSpecies = formData.species === 'Other' ? formData.customSpecies : formData.species;
+      const payloadBreed = (formData.species === 'Other' || formData.breed === 'Otra') ? formData.customBreed : formData.breed;
+
       const payload = {
         name: formData.name,
-        species: formData.species,
-        breed: formData.breed,
+        species: payloadSpecies,
+        breed: payloadBreed,
         bornDate: formData.bornDate,
         sex: formData.sex,
         size: formData.size,
@@ -169,20 +199,41 @@ export function CreatePetScreen() {
                 <label className="block font-semibold text-[#2D3436] mb-2" htmlFor="species">
                   Especie <span className="text-red-500">*</span>
                 </label>
-                <select
-                  id="species"
-                  value={formData.species}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-3 bg-white border ${
-                    errors.species ? 'border-red-500 bg-red-50' : 'border-[#DCDDE1]'
-                  } rounded-lg focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors`}
-                >
-                  <option value="">Seleccione una opción</option>
-                  <option value="Dog">Perro</option>
-                  <option value="Cat">Gato</option>
-                  <option value="Other">Otro</option>
-                </select>
-                {errors.species && <p className="mt-1 text-red-500 text-sm font-semibold">{errors.species}</p>}
+                <div className="flex flex-col gap-3">
+                  <select
+                    id="species"
+                    value={formData.species}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-3 bg-white border ${
+                      errors.species ? 'border-red-500 bg-red-50' : 'border-[#DCDDE1]'
+                    } rounded-lg focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors`}
+                  >
+                    <option value="">Seleccione una opción</option>
+                    <option value="Dog">Perro</option>
+                    <option value="Cat">Gato</option>
+                    <option value="Other">Otro</option>
+                  </select>
+                  {errors.species && <p className="text-red-500 text-sm font-semibold">{errors.species}</p>}
+
+                  {formData.species === 'Other' && (
+                    <div className="mt-2">
+                      <label className="block font-semibold text-[#2D3436] mb-2" htmlFor="customSpecies">
+                        ¿Qué especie es? <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="customSpecies"
+                        type="text"
+                        value={formData.customSpecies}
+                        onChange={handleChange}
+                        className={`w-full px-4 py-3 bg-white border ${
+                          errors.customSpecies ? 'border-red-500 bg-red-50' : 'border-[#DCDDE1]'
+                        } rounded-lg focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors`}
+                        placeholder="Ej. Conejo, Hurón..."
+                      />
+                      {errors.customSpecies && <p className="mt-1 text-red-500 text-sm font-semibold">{errors.customSpecies}</p>}
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div>
@@ -247,16 +298,61 @@ export function CreatePetScreen() {
 
               <div>
                 <label className="block font-semibold text-[#2D3436] mb-2" htmlFor="breed">
-                  Raza de la mascota
+                  Raza de la mascota <span className="text-red-500">*</span>
                 </label>
-                <input
-                  id="breed"
-                  type="text"
-                  value={formData.breed}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white border border-[#DCDDE1] rounded-lg focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors"
-                  placeholder="Raza"
-                />
+                {formData.species === 'Other' ? (
+                  <>
+                    <input
+                      id="customBreed"
+                      type="text"
+                      value={formData.customBreed}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-3 bg-white border ${
+                        errors.customBreed ? 'border-red-500 bg-red-50' : 'border-[#DCDDE1]'
+                      } rounded-lg focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors`}
+                      placeholder="Especifique la raza"
+                    />
+                    {errors.customBreed && <p className="mt-1 text-red-500 text-sm font-semibold">{errors.customBreed}</p>}
+                  </>
+                ) : (
+                  <div className="flex flex-col gap-3">
+                    <select
+                      id="breed"
+                      value={formData.breed}
+                      onChange={handleChange}
+                      disabled={!formData.species}
+                      className={`w-full px-4 py-3 bg-white border ${
+                        errors.breed ? 'border-red-500 bg-red-50' : 'border-[#DCDDE1]'
+                      } rounded-lg focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed`}
+                    >
+                      <option value="">Seleccione una raza</option>
+                      {formData.species && ANIMAL_BREEDS[formData.species]?.map(breedOption => (
+                        <option key={breedOption} value={breedOption}>{breedOption}</option>
+                      ))}
+                    </select>
+                    {errors.breed && <p className="text-red-500 text-sm font-semibold">{errors.breed}</p>}
+                    {!formData.species && <p className="text-xs text-gray-500">Selecciona primero una especie</p>}
+
+                    {formData.breed === 'Otra' && (
+                      <div className="mt-2">
+                        <label className="block font-semibold text-[#2D3436] mb-2" htmlFor="customBreed">
+                          ¿Cuál es la raza? <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          id="customBreed"
+                          type="text"
+                          value={formData.customBreed}
+                          onChange={handleChange}
+                          className={`w-full px-4 py-3 bg-white border ${
+                            errors.customBreed ? 'border-red-500 bg-red-50' : 'border-[#DCDDE1]'
+                          } rounded-lg focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors`}
+                          placeholder="Especifique la raza"
+                        />
+                        {errors.customBreed && <p className="mt-1 text-red-500 text-sm font-semibold">{errors.customBreed}</p>}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div>
@@ -303,16 +399,19 @@ export function CreatePetScreen() {
 
               <div>
                 <label className="block font-semibold text-[#2D3436] mb-2" htmlFor="imageUrl">
-                  Foto de la Mascota
+                  Foto de la Mascota <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="imageUrl"
                   type="text"
                   value={formData.imageUrl}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white border border-[#DCDDE1] rounded-lg focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors"
+                  className={`w-full px-4 py-3 bg-white border ${
+                    errors.imageUrl ? 'border-red-500 bg-red-50' : 'border-[#DCDDE1]'
+                  } rounded-lg focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors`}
                   placeholder="URL de la imagen (JPG, PNG)"
                 />
+                {errors.imageUrl && <p className="mt-1 text-red-500 text-sm font-semibold">{errors.imageUrl}</p>}
               </div>
 
               <div className="flex flex-col gap-4 py-2">

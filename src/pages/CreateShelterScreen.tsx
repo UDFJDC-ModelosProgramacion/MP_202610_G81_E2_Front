@@ -172,6 +172,7 @@ export function CreateShelterScreen() {
                   } rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors`}
                   placeholder="Ingrese el NIT"
                 />
+                <p className="mt-1 text-xs text-gray-500 font-medium">Formato esperado: Número de Identificación sin puntos (Ej: 900123456-7).</p>
                 {errors.nit && <p className="mt-1 text-red-500 text-sm font-semibold">{errors.nit}</p>}
               </div>
 

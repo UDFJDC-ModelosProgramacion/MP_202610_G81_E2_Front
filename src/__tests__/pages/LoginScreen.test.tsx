@@ -1,6 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { LoginScreen } from '../../pages/LoginScreen';
 import { vi, describe, test, expect, beforeEach } from 'vitest';
@@ -47,23 +48,50 @@ describe('LoginScreen Component', () => {
     expect(globalThis.fetch).not.toHaveBeenCalled();
   });
 
-  test('Simula login exitoso y redirecciona a /home', async () => {
+  test('shows validation errors for invalid email format', async () => {
+    renderComponent();
+    
+    const emailInput = screen.getByPlaceholderText(/Ingresa tu correo/i);
+    await userEvent.setup({ delay: null }).type(emailInput, 'invalid-email');
+
+    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
+    fireEvent.click(submitButton);
+
+    expect(await screen.findByText('El formato del correo es inválido')).toBeInTheDocument();
+  });
+
+  test('shows validation errors for weak passwords', async () => {
+    renderComponent();
+    
+    const passwordInput = screen.getByPlaceholderText(/Ingresa tu contraseña/i);
+    
+    // Test too short
+    await userEvent.setup({ delay: null }).type(passwordInput, 'pass12');
+    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
+    fireEvent.click(submitButton);
+    expect(await screen.findByText('La contraseña debe tener al menos 8 caracteres y contener letras y números')).toBeInTheDocument();
+  });
+
+  test('submits to the correct API endpoint with valid credentials', async () => {
     (globalThis.fetch as any).mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ token: 'fake-token' })
+      json: async () => ({ token: 'mock-token' })
     });
 
     renderComponent();
 
-    fireEvent.change(screen.getByLabelText(/Correo Electrónico/i), { target: { value: 'test@test.com' } });
-    fireEvent.change(screen.getByLabelText(/Contraseña/i), { target: { value: 'password123' } });
+    const emailInput = screen.getByPlaceholderText(/Ingresa tu correo/i);
+    const passwordInput = screen.getByPlaceholderText(/Ingresa tu contraseña/i);
+
+    await userEvent.setup({ delay: null }).type(emailInput, 'user@example.com');
+    await userEvent.setup({ delay: null }).type(passwordInput, 'Password123');
 
     const submitButton = screen.getByRole('button', { name: /Ingresar/i });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringContaining('/login'), expect.any(Object));
-      expect(mockedNavigate).toHaveBeenCalledWith('/home');
+      expect(mockedNavigate).toHaveBeenCalledWith('/');
     });
   });
 
@@ -75,12 +103,12 @@ describe('LoginScreen Component', () => {
     renderComponent();
 
     fireEvent.change(screen.getByLabelText(/Correo Electrónico/i), { target: { value: 'wrong@test.com' } });
-    fireEvent.change(screen.getByLabelText(/Contraseña/i), { target: { value: 'wrongpass' } });
+    fireEvent.change(screen.getByLabelText(/Contraseña/i), { target: { value: 'WrongPass123' } });
 
     const submitButton = screen.getByRole('button', { name: /Ingresar/i });
     fireEvent.click(submitButton);
 
-    expect(await screen.findByText(/Credenciales inválidas/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Correo o contraseña incorrectos./i)).toBeInTheDocument();
     expect(mockedNavigate).not.toHaveBeenCalled();
   });
 });
