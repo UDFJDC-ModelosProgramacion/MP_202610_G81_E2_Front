@@ -8,6 +8,7 @@ import AdoptionRequestScreen from './pages/AdoptionRequestScreen'; // <-- Nueva 
 import CreateReviewScreen from './pages/CreateReviewScreen'; // Pantalla de reseñas
 import { LoginScreen } from './pages/LoginScreen'; // Pantalla de login
 import ManageAdoptionRequestsScreen from './pages/ManageAdoptionRequestsScreen'; //Aprobación o rechazo de solicitudes de adopción
+import PetListScreen from './pages/PetListScreen'; // Listar mascotas
 
 import './App.css'; // Mantenemos esta línea para tus estilos globales
 
@@ -52,6 +53,14 @@ function App() {
                   className="p-3 bg-pink-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
                 >
                   Registrar Mascota
+                </Link>
+
+                {/* Nuevo enlace para Listar Mascotas */}
+                <Link 
+                  to="/listar-mascotas" 
+                  className="p-3 bg-teal-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
+                >
+                  Listar Mascotas
                 </Link>
 
                 {/* Nuevo enlace para Solicitar Adopción */}
@@ -101,6 +110,9 @@ function App() {
 
         {/* Ruta de crear reseña de adopción */}
         <Route path="/crear-resena" element={<CreateReviewScreen />} />
+
+        {/* Ruta de listar mascotas */}
+        <Route path="/listar-mascotas" element={<PetListScreen />} />
         
       </Routes>
     </Router>
