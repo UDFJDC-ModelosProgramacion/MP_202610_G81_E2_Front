@@ -58,10 +58,11 @@ Se han implementado las siguientes historias de usuario:
 | HU01 Registro | Sofía Rivera Fernández |
 | HU02 Inicio de sesión | Sofía Rivera |
 | HU04 Crear shelter | Karen Johanna Cabezas Herrera |
-| HU05 Listar shelters | Karen Cabezas |
+| HU05 Listar shelters | Karen Johanna Cabezas Herrera |
 | HU07 Crear mascota | Sergio Leonardo Moreno Granado |
-| HU08 Listar mascotas | Sergio Moreno |
+| HU08 Listar mascotas | Sergio Leonardo Moreno Granado |
+| HU09 Editar perfil | Karen Johanna Cabezas Herrera |
 | HU10 Solicitar | Anderson Danilo Bonilla Martínez |
-| HU11 Aprobar/Rechazar | Anderson Bonilla |
+| HU11 Aprobar/Rechazar | Anderson Danilo Bonilla Martínez |
 | HU13 Crear Reseña | Juan David Díaz Páez |
-| HU14 Revisar reseña | Juan Díaz |
+| HU14 Revisar reseña | Juan David Díaz Páez |
