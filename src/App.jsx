@@ -8,6 +8,7 @@ import AdoptionRequestScreen from './pages/AdoptionRequestScreen'; // <-- Nueva 
 import CreateReviewScreen from './pages/CreateReviewScreen'; // Pantalla de reseñas
 import { LoginScreen } from './pages/LoginScreen'; // Pantalla de login
 import ManageAdoptionRequestsScreen from './pages/ManageAdoptionRequestsScreen'; //Aprobación o rechazo de solicitudes de adopción
+import ShelterScreen from './pages/ShelterListScreen'; // Pantalla de lista de shelters
 
 import './App.css'; // Mantenemos esta línea para tus estilos globales
 
@@ -76,6 +77,14 @@ function App() {
                 >
                   Crear Reseña de Adopción
                 </Link>
+
+                {/* Nuevo enlace para Listar Shelters */}
+                <Link 
+                  to="/shelters" 
+                  className="p-3 bg-teal-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
+                >
+                  Listar Shelters
+                </Link>
               </div>
             </div>
           }
@@ -101,6 +110,9 @@ function App() {
 
         {/* Ruta de crear reseña de adopción */}
         <Route path="/crear-resena" element={<CreateReviewScreen />} />
+
+        {/* Ruta de listar shelters */}
+        <Route path="/shelters" element={<ShelterScreen />} />
         
       </Routes>
     </Router>
