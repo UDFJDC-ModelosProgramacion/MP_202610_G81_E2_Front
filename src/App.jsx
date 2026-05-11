@@ -10,6 +10,7 @@ import PetReviewsPage from './pages/PetReviewScreen'; // Pantalla de visualizaci
 import { LoginScreen } from './pages/LoginScreen'; // Pantalla de login
 import ManageAdoptionRequestsScreen from './pages/ManageAdoptionRequestsScreen'; //Aprobación o rechazo de solicitudes de adopción
 import PetListScreen from './pages/PetListScreen'; // Listar mascotas
+import ShelterScreen from './pages/ShelterListScreen'; // Pantalla de lista de shelters
 
 import './App.css'; // Mantenemos esta línea para tus estilos globales
 
@@ -94,6 +95,14 @@ function App() {
                 >
                   Ver Reseñas de Mascotas
                 </Link>
+
+                {/* Nuevo enlace para Listar Shelters */}
+                <Link 
+                  to="/shelters" 
+                  className="p-3 bg-teal-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
+                >
+                  Listar Shelters
+                </Link>
               </div>
             </div>
           }
@@ -125,6 +134,9 @@ function App() {
 
         {/* Ruta de ver reseñas de mascotas (HU14) */}
         <Route path="/ver-resenas" element={<PetReviewsPage />} />
+
+        {/* Ruta de listar shelters */}
+        <Route path="/shelters" element={<ShelterScreen />} />
         
       </Routes>
     </Router>

@@ -40,7 +40,6 @@ describe('LoginScreen Component', () => {
   test('Muestra errores de validación si los campos están vacíos al enviar', async () => {
     renderComponent();
 
-    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
     fireEvent.submit(screen.getByTestId("login-form"));
 
     expect(await screen.findByText(/El correo es obligatorio/i)).toBeInTheDocument();
@@ -54,7 +53,6 @@ describe('LoginScreen Component', () => {
     const emailInput = screen.getByPlaceholderText(/Ingresa tu correo/i);
     await userEvent.setup({ delay: null }).type(emailInput, 'invalid-email');
 
-    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
     fireEvent.submit(screen.getByTestId("login-form"));
 
     expect(await screen.findByText('El formato del correo es inválido')).toBeInTheDocument();
@@ -67,7 +65,6 @@ describe('LoginScreen Component', () => {
     
     // Test too short
     await userEvent.setup({ delay: null }).type(passwordInput, 'pass12');
-    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
     fireEvent.submit(screen.getByTestId("login-form"));
     expect(await screen.findByText('La contraseña debe tener al menos 8 caracteres y contener letras y números')).toBeInTheDocument();
   });
@@ -86,7 +83,6 @@ describe('LoginScreen Component', () => {
     await userEvent.setup({ delay: null }).type(emailInput, 'user@example.com');
     await userEvent.setup({ delay: null }).type(passwordInput, 'Password123');
 
-    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
     fireEvent.submit(screen.getByTestId("login-form"));
 
     await waitFor(() => {
@@ -105,10 +101,69 @@ describe('LoginScreen Component', () => {
     fireEvent.change(screen.getByLabelText(/Correo Electrónico/i), { target: { value: 'wrong@test.com' } });
     fireEvent.change(screen.getByLabelText(/Contraseña/i), { target: { value: 'WrongPass123' } });
 
-    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
     fireEvent.submit(screen.getByTestId("login-form"));
 
     expect(await screen.findByText(/Correo o contraseña incorrectos./i)).toBeInTheDocument();
     expect(mockedNavigate).not.toHaveBeenCalled();
+  });
+  test('simula error 500 y muestra mensaje genérico', async () => {
+    (globalThis.fetch as any).mockResolvedValueOnce({
+      ok: false, status: 500,
+    });
+
+    renderComponent();
+
+    const emailInput = screen.getByPlaceholderText(/Ingresa tu correo/i);
+    const passwordInput = screen.getByPlaceholderText(/Ingresa tu contraseña/i);
+
+    await userEvent.setup({ delay: null }).type(emailInput, 'user@example.com');
+    await userEvent.setup({ delay: null }).type(passwordInput, 'Password123');
+
+    fireEvent.submit(screen.getByTestId("login-form"));
+
+    expect(await screen.findByText(/Error en el inicio de sesión. Intenta de nuevo./i)).toBeInTheDocument();
+  });
+
+  test('simula fallo de red', async () => {
+    (globalThis.fetch as any).mockRejectedValueOnce(new Error('Network error'));
+
+    renderComponent();
+
+    const emailInput = screen.getByPlaceholderText(/Ingresa tu correo/i);
+    const passwordInput = screen.getByPlaceholderText(/Ingresa tu contraseña/i);
+
+    await userEvent.setup({ delay: null }).type(emailInput, 'user@example.com');
+    await userEvent.setup({ delay: null }).type(passwordInput, 'Password123');
+
+    fireEvent.submit(screen.getByTestId("login-form"));
+
+    expect(await screen.findByText(/Error al conectar con el servidor/i)).toBeInTheDocument();
+  });
+
+  test('navega hacia atrás al hacer clic en Volver', () => {
+    renderComponent();
+    const backButton = screen.getByRole('button', { name: /Volver/i });
+    fireEvent.click(backButton);
+    expect(mockedNavigate).toHaveBeenCalledWith(-1);
+  });
+
+  test('Limpia los errores de validación al escribir en los campos', async () => {
+    renderComponent();
+    
+    // Enviar el formulario vacío para generar errores
+    fireEvent.submit(screen.getByTestId("login-form"));
+
+    expect(await screen.findByText(/El correo es obligatorio/i)).toBeInTheDocument();
+    expect(await screen.findByText(/La contraseña es obligatoria/i)).toBeInTheDocument();
+
+    // Escribir en los campos para limpiar errores
+    const emailInput = screen.getByPlaceholderText(/Ingresa tu correo/i);
+    const passwordInput = screen.getByPlaceholderText(/Ingresa tu contraseña/i);
+
+    await userEvent.setup({ delay: null }).type(emailInput, 'a');
+    await userEvent.setup({ delay: null }).type(passwordInput, 'a');
+
+    expect(screen.queryByText(/El correo es obligatorio/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/La contraseña es obligatoria/i)).not.toBeInTheDocument();
   });
 });

@@ -48,7 +48,8 @@ export const PetListScreen: React.FC = () => {
             if (filterSize) params.append('size', filterSize);
             if (filterTemperament) params.append('temperament', filterTemperament);
 
-            const url = `http://localhost:8080/api/pets${params.toString() ? `?${params.toString()}` : ''}`;
+            const API_BASE_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:8080/api';
+            const url = `${API_BASE_URL}/pets${params.toString() ? `?${params.toString()}` : ''}`;
             const response = await fetch(url);
             
             if (!response.ok) {

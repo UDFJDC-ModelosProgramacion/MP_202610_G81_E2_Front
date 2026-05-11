@@ -8,6 +8,16 @@ import { vi, describe, it, expect, beforeEach } from 'vitest';
 // Mock fetch
 globalThis.fetch = vi.fn();
 
+const mockedNavigate = vi.fn();
+
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useNavigate: () => mockedNavigate,
+  };
+});
+
 const renderWithRouter = (ui: React.ReactElement) => {
   return render(<BrowserRouter>{ui}</BrowserRouter>);
 };
@@ -92,8 +102,7 @@ describe('CreatePetScreen', () => {
     const termsCheck = screen.getByLabelText(/Acepta los términos y condiciones/i);
     await user.click(termsCheck);
 
-    const submitBtn = screen.getByRole('button', { name: /agregar mascota al refugio/i });
-    fireEvent.submit(document.querySelector("form") as HTMLFormElement);      screen.debug();
+    fireEvent.submit(document.querySelector("form") as HTMLFormElement);
     await waitFor(() => {
       expect(globalThis.fetch).toHaveBeenCalledTimes(1);
     });
@@ -148,7 +157,6 @@ describe('CreatePetScreen', () => {
     const termsCheck = screen.getByLabelText(/Acepta los términos y condiciones/i);
     await user.click(termsCheck);
 
-    const submitBtn = screen.getByRole('button', { name: /agregar mascota al refugio/i });
     fireEvent.submit(document.querySelector("form") as HTMLFormElement);
 
     await waitFor(() => {
@@ -178,5 +186,157 @@ describe('CreatePetScreen', () => {
     expect(payload).toHaveProperty('specificNeeds', 'None');
     expect(payload).toHaveProperty('originLocation', 'Street');
     expect(payload).toHaveProperty('isRescued', true);
+  });
+
+  it('navigates back on Volver button click', async () => {
+    renderWithRouter(<CreatePetScreen />);
+    const backButton = screen.getByRole('button', { name: /Volver/i });
+    await userEvent.setup({ delay: null }).click(backButton);
+    expect(mockedNavigate).toHaveBeenCalledWith(-1);
+  });
+
+  it('navigates back on Cancelar button click', async () => {
+    renderWithRouter(<CreatePetScreen />);
+    const cancelButton = screen.getByRole('button', { name: /Cancelar/i });
+    await userEvent.setup({ delay: null }).click(cancelButton);
+    expect(mockedNavigate).toHaveBeenCalledWith(-1);
+  });
+
+  it('shows generic error alert when fetch fails', async () => {
+    const alertSpy = vi.spyOn(globalThis, 'alert').mockImplementation(() => {});
+    (globalThis.fetch as any).mockRejectedValueOnce(new Error('Network error'));
+
+    renderWithRouter(<CreatePetScreen />);
+
+    // Fill minimum required fields
+    const user = userEvent.setup({ delay: null });
+    await user.type(screen.getByPlaceholderText('Nombre'), 'Buddy');
+    fireEvent.change(document.querySelector('#species') as HTMLSelectElement, { target: { value: 'Dog' } });
+    fireEvent.change(document.querySelector('#size') as HTMLSelectElement, { target: { value: 'Large' } });
+    fireEvent.change(document.querySelector('#sex') as HTMLSelectElement, { target: { value: 'Male' } });
+    fireEvent.change(document.querySelector('#breed') as HTMLSelectElement, { target: { value: 'Labrador Retriever' } });
+    fireEvent.change(document.querySelector("#temperament") as HTMLSelectElement, { target: { value: "Playful" } });
+    await user.type(screen.getByPlaceholderText('URL de la imagen (JPG, PNG)'), 'https://example.com/photo.jpg');
+    
+    await user.click(screen.getByLabelText(/Acepta los términos y condiciones/i));
+
+    fireEvent.submit(document.querySelector("form") as HTMLFormElement);
+
+    await waitFor(() => {
+      expect(alertSpy).toHaveBeenCalledWith('Error al conectar con el servidor.');
+    });
+  });
+
+  it('shows specific error alert when API returns non-ok status', async () => {
+    const alertSpy = vi.spyOn(globalThis, 'alert').mockImplementation(() => {});
+    (globalThis.fetch as any).mockResolvedValueOnce({
+      ok: false,
+      json: async () => ({ message: 'Bad Request' })
+    });
+
+    renderWithRouter(<CreatePetScreen />);
+
+    // Fill minimum required fields
+    const user = userEvent.setup({ delay: null });
+    await user.type(screen.getByPlaceholderText('Nombre'), 'Buddy');
+    fireEvent.change(document.querySelector('#species') as HTMLSelectElement, { target: { value: 'Dog' } });
+    fireEvent.change(document.querySelector('#size') as HTMLSelectElement, { target: { value: 'Large' } });
+    fireEvent.change(document.querySelector('#sex') as HTMLSelectElement, { target: { value: 'Male' } });
+    fireEvent.change(document.querySelector('#breed') as HTMLSelectElement, { target: { value: 'Labrador Retriever' } });
+    fireEvent.change(document.querySelector("#temperament") as HTMLSelectElement, { target: { value: "Playful" } });
+    await user.type(screen.getByPlaceholderText('URL de la imagen (JPG, PNG)'), 'https://example.com/photo.jpg');
+    
+    await user.click(screen.getByLabelText(/Acepta los términos y condiciones/i));
+
+    fireEvent.submit(document.querySelector("form") as HTMLFormElement);
+
+    await waitFor(() => {
+      expect(alertSpy).toHaveBeenCalledWith('Ocurrió un error al registrar la mascota.');
+    });
+  });
+
+  it('navigates to home when clicking Ir al inicio after successful creation', async () => {
+    (globalThis.fetch as any).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ id: 1, status: 'IN_SHELTER' })
+    });
+
+    renderWithRouter(<CreatePetScreen />);
+
+    // Fill minimum required fields
+    const user = userEvent.setup({ delay: null });
+    await user.type(screen.getByPlaceholderText('Nombre'), 'Buddy');
+    fireEvent.change(document.querySelector('#species') as HTMLSelectElement, { target: { value: 'Dog' } });
+    fireEvent.change(document.querySelector('#size') as HTMLSelectElement, { target: { value: 'Large' } });
+    fireEvent.change(document.querySelector('#sex') as HTMLSelectElement, { target: { value: 'Male' } });
+    fireEvent.change(document.querySelector('#breed') as HTMLSelectElement, { target: { value: 'Labrador Retriever' } });
+    fireEvent.change(document.querySelector("#temperament") as HTMLSelectElement, { target: { value: "Playful" } });
+    await user.type(screen.getByPlaceholderText('URL de la imagen (JPG, PNG)'), 'https://example.com/photo.jpg');
+    
+    await user.click(screen.getByLabelText(/Acepta los términos y condiciones/i));
+
+    fireEvent.submit(document.querySelector("form") as HTMLFormElement);
+
+    expect(await screen.findByText('Mascota registrada')).toBeInTheDocument();
+
+    const homeButton = screen.getByRole('button', { name: /Ir al inicio/i });
+    await userEvent.setup({ delay: null }).click(homeButton);
+    expect(mockedNavigate).toHaveBeenCalledWith('/');
+  });
+
+  it('resets breed and custom fields when species changes', async () => {
+    renderWithRouter(<CreatePetScreen />);
+    const user = userEvent.setup({ delay: null });
+
+    // Select Other species
+    const speciesSelect = document.querySelector('#species') as HTMLSelectElement;
+    fireEvent.change(speciesSelect, { target: { value: 'Other' } });
+
+    // Type custom species
+    const customSpeciesInput = await screen.findByPlaceholderText('Ej. Conejo, Hurón...');
+    await user.type(customSpeciesInput, 'Loro');
+
+    // Type custom breed
+    const customBreedInput = await screen.findByPlaceholderText('Especifique la raza');
+    await user.type(customBreedInput, 'Guacamaya');
+
+    // Change species back to Dog
+    fireEvent.change(speciesSelect, { target: { value: 'Dog' } });
+
+    // The custom species input should be gone
+    expect(screen.queryByPlaceholderText('Ej. Conejo, Hurón...')).not.toBeInTheDocument();
+    
+    // Select breed "Otra" for Dog
+    const breedSelect = document.querySelector('#breed') as HTMLSelectElement;
+    fireEvent.change(breedSelect, { target: { value: 'Otra' } });
+
+    // Type custom breed again
+    const customBreedInput2 = await screen.findByPlaceholderText('Especifique la raza');
+    await user.type(customBreedInput2, 'Mezcla');
+
+    // Change breed to a specific one
+    fireEvent.change(breedSelect, { target: { value: 'Pug' } });
+
+    // The custom breed input should be gone
+    expect(screen.queryByPlaceholderText('Especifique la raza')).not.toBeInTheDocument();
+  });
+
+  it('clears validation errors on change', async () => {
+    renderWithRouter(<CreatePetScreen />);
+    const user = userEvent.setup({ delay: null });
+
+    const submitBtn = screen.getByRole('button', { name: /agregar mascota al refugio/i });
+    fireEvent.click(submitBtn);
+
+    // Should show error for name
+    const errorMessages = await screen.findAllByText('Requerido');
+    expect(errorMessages.length).toBeGreaterThan(0);
+
+    const nameInput = screen.getByPlaceholderText('Nombre');
+    expect(nameInput).toHaveClass('border-red-500');
+
+    // Type in name to clear error
+    await user.type(nameInput, 'Bobby');
+    expect(nameInput).not.toHaveClass('border-red-500');
   });
 });
