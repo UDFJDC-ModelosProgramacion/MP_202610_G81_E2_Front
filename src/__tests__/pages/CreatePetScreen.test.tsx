@@ -102,7 +102,6 @@ describe('CreatePetScreen', () => {
     const termsCheck = screen.getByLabelText(/Acepta los términos y condiciones/i);
     await user.click(termsCheck);
 
-    const submitBtn = screen.getByRole('button', { name: /agregar mascota al refugio/i });
     fireEvent.submit(document.querySelector("form") as HTMLFormElement);
     await waitFor(() => {
       expect(globalThis.fetch).toHaveBeenCalledTimes(1);
@@ -158,7 +157,6 @@ describe('CreatePetScreen', () => {
     const termsCheck = screen.getByLabelText(/Acepta los términos y condiciones/i);
     await user.click(termsCheck);
 
-    const submitBtn = screen.getByRole('button', { name: /agregar mascota al refugio/i });
     fireEvent.submit(document.querySelector("form") as HTMLFormElement);
 
     await waitFor(() => {

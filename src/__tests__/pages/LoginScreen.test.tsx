@@ -40,7 +40,6 @@ describe('LoginScreen Component', () => {
   test('Muestra errores de validación si los campos están vacíos al enviar', async () => {
     renderComponent();
 
-    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
     fireEvent.submit(screen.getByTestId("login-form"));
 
     expect(await screen.findByText(/El correo es obligatorio/i)).toBeInTheDocument();
@@ -54,7 +53,6 @@ describe('LoginScreen Component', () => {
     const emailInput = screen.getByPlaceholderText(/Ingresa tu correo/i);
     await userEvent.setup({ delay: null }).type(emailInput, 'invalid-email');
 
-    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
     fireEvent.submit(screen.getByTestId("login-form"));
 
     expect(await screen.findByText('El formato del correo es inválido')).toBeInTheDocument();
@@ -67,7 +65,6 @@ describe('LoginScreen Component', () => {
     
     // Test too short
     await userEvent.setup({ delay: null }).type(passwordInput, 'pass12');
-    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
     fireEvent.submit(screen.getByTestId("login-form"));
     expect(await screen.findByText('La contraseña debe tener al menos 8 caracteres y contener letras y números')).toBeInTheDocument();
   });
@@ -86,7 +83,6 @@ describe('LoginScreen Component', () => {
     await userEvent.setup({ delay: null }).type(emailInput, 'user@example.com');
     await userEvent.setup({ delay: null }).type(passwordInput, 'Password123');
 
-    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
     fireEvent.submit(screen.getByTestId("login-form"));
 
     await waitFor(() => {
@@ -105,7 +101,6 @@ describe('LoginScreen Component', () => {
     fireEvent.change(screen.getByLabelText(/Correo Electrónico/i), { target: { value: 'wrong@test.com' } });
     fireEvent.change(screen.getByLabelText(/Contraseña/i), { target: { value: 'WrongPass123' } });
 
-    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
     fireEvent.submit(screen.getByTestId("login-form"));
 
     expect(await screen.findByText(/Correo o contraseña incorrectos./i)).toBeInTheDocument();
@@ -156,7 +151,6 @@ describe('LoginScreen Component', () => {
     renderComponent();
     
     // Enviar el formulario vacío para generar errores
-    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
     fireEvent.submit(screen.getByTestId("login-form"));
 
     expect(await screen.findByText(/El correo es obligatorio/i)).toBeInTheDocument();
