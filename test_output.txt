@@ -1,0 +1,417 @@
+
+> mp-202610-g81-e2-front@0.0.0 test
+> vitest run --run
+
+
+ RUN  v4.1.5 /home/leo/GitHub/mdp/MP_202610_G81_E2_Front
+
+ ❯ src/__tests__/components/ProtectedRoute.test.tsx (0 test)
+stderr | src/__tests__/pages/CreateReviewScreen.test.tsx > CreateReviewScreen – Unit Tests > renders the main heading and form fields
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/__tests__/pages/CreateReviewScreen.test.tsx > CreateReviewScreen – Unit Tests > renders the rating slider with default value 5
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/__tests__/pages/CreateReviewScreen.test.tsx > CreateReviewScreen – Unit Tests > shows "Malo" and "Excelente" labels for the rating scale
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/__tests__/pages/ManageAdoptionRequestsScreen.test.tsx > ManageAdoptionRequestsScreen > shows error when fetching requests fails
+Error loading adoption requests: Error: Fetch failed
+    at /home/leo/GitHub/mdp/MP_202610_G81_E2_Front/src/__tests__/pages/ManageAdoptionRequestsScreen.test.tsx:140:53
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2955:64
+
+stderr | src/__tests__/pages/CreateReviewScreen.test.tsx > CreateReviewScreen – Unit Tests > updates the rating when the slider is changed
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/__tests__/pages/CreateReviewScreen.test.tsx > CreateReviewScreen – Unit Tests > renders the review date as read-only
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CreateReviewScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/__tests__/pages/ManageAdoptionRequestsScreen.test.tsx > ManageAdoptionRequestsScreen > shows error when updating status fails
+Error updating adoption request: Error: Update failed
+    at /home/leo/GitHub/mdp/MP_202610_G81_E2_Front/src/__tests__/pages/ManageAdoptionRequestsScreen.test.tsx:151:37
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2955:64
+
+ ✓ src/__tests__/pages/ManageAdoptionRequestsScreen.test.tsx (12 tests) 5427ms
+     ✓ renders adoption request list and detail  741ms
+     ✓ approves a pending adoption request  1828ms
+     ✓ rejects a pending adoption request  461ms
+     ✓ shows error when updating status fails  487ms
+     ✓ selects a different request when clicked in the sidebar  567ms
+     ✓ rejects a request from the sidebar button  301ms
+     ✓ renders pre-approved and pre-rejected requests with correct labels  316ms
+stderr | src/__tests__/pages/LoginScreen.test.tsx > LoginScreen Component > simula fallo de red
+Error de conexión: Error: Network error
+    at /home/leo/GitHub/mdp/MP_202610_G81_E2_Front/src/__tests__/pages/LoginScreen.test.tsx:133:53
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2955:64
+
+ ✓ src/__tests__/pages/LoginScreen.test.tsx (10 tests) 5877ms
+     ✓ Renderiza correctamente los inputs  1681ms
+     ✓ Muestra errores de validación si los campos están vacíos al enviar  417ms
+     ✓ shows validation errors for invalid email format  858ms
+     ✓ shows validation errors for weak passwords  386ms
+     ✓ submits to the correct API endpoint with valid credentials  1106ms
+     ✓ simula error 500 y muestra mensaje genérico  515ms
+     ✓ simula fallo de red  410ms
+stderr | src/__tests__/pages/CreateShelterScreen.test.tsx > CreateShelterScreen > shows error message on network failure
+Error de conexión: Error: Network error
+    at /home/leo/GitHub/mdp/MP_202610_G81_E2_Front/src/__tests__/pages/CreateShelterScreen.test.tsx:85:37
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2955:64
+
+ ✓ src/__tests__/pages/CreateReviewScreen.test.tsx (12 tests) 6172ms
+     ✓ renders the main heading and form fields  1952ms
+     ✓ shows error when submitting without a comment  475ms
+     ✓ shows error when no adoption process is available  410ms
+     ✓ renders existing reviews from the API  342ms
+     ✓ submits a review to the API with the correct payload  1553ms
+     ✓ shows error message when the API POST fails  523ms
+ ✓ src/__tests__/pages/RegisterScreen.test.tsx (6 tests) 6862ms
+     ✓ renders all form fields correctly  1778ms
+     ✓ shows validation errors when submitting an empty form  346ms
+     ✓ shows validation error when passwords do not match  1620ms
+     ✓ submits to the correct API endpoint with correct user registration payload  1256ms
+     ✓ handles duplicate email error with 409 status  1002ms
+     ✓ handles connection errors gracefully  828ms
+ ✓ src/__tests__/pages/CreateShelterScreen.test.tsx (8 tests) 9567ms
+     ✓ renders all form fields correctly  2156ms
+     ✓ shows validation errors when submitting an empty form  506ms
+     ✓ submits to the API base url for shelters  2925ms
+     ✓ shows error message on network failure  322ms
+     ✓ shows success message and resets form  2903ms
+     ✓ Limpia los errores de validación al escribir en los campos  303ms
+stderr | src/__tests__/pages/AdoptionRequestScreen.test.tsx > AdoptionRequestScreen > renders correctly and shows loading state initially
+An update to AdoptionRequestScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to AdoptionRequestScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ src/__tests__/pages/AdoptionRequestScreen.test.tsx (3 tests) 2769ms
+     ✓ renders correctly and shows loading state initially  1489ms
+     ✓ shows error if comment is empty on submit  425ms
+     ✓ submits to the API with correct adoption request payload  806ms
+stderr | src/__tests__/pages/CreatePetScreen.test.tsx > CreatePetScreen > shows generic error alert when fetch fails
+Error de conexión: Error: Network error
+    at /home/leo/GitHub/mdp/MP_202610_G81_E2_Front/src/__tests__/pages/CreatePetScreen.test.tsx:209:53
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///home/leo/GitHub/mdp/MP_202610_G81_E2_Front/node_modules/@vitest/runner/dist/chunk-artifact.js:2955:64
+
+stderr | src/__tests__/pages/CreatePetScreen.test.tsx > CreatePetScreen > shows specific error alert when API returns non-ok status
+Error response: { message: 'Bad Request' }
+
+ ✓ src/__tests__/pages/PetReviewScreen.test.tsx (5 tests) 1628ms
+     ✓ renders loading state initially  348ms
+     ✓ renders reviews grouped by pet and selects the first pet automatically  892ms
+ ✓ src/__tests__/pages/ServiceScreen.test.tsx (2 tests) 1240ms
+     ✓ renders all functional buttons  1152ms
+stderr | src/__tests__/pages/PetListScreen.test.tsx > PetListScreen > renderiza el encabezado correctamente
+An update to PetListScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to PetListScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ src/__tests__/pages/PetListScreen.test.tsx (8 tests) 1788ms
+     ✓ muestra estado de carga inicialmente  353ms
+     ✓ llama a la API con filtros al enviar el formulario de búsqueda  850ms
+ ✓ src/__tests__/pages/CreatePetScreen.test.tsx (11 tests) 15609ms
+     ✓ renders all form fields correctly  2111ms
+     ✓ shows validation errors when submitting empty form  396ms
+     ✓ submits form successfully when all mandatory fields are filled  3099ms
+     ✓ submits to the correct API endpoint with all required pet fields  4258ms
+     ✓ shows generic error alert when fetch fails  1767ms
+     ✓ shows specific error alert when API returns non-ok status  1276ms
+     ✓ navigates to home when clicking Ir al inicio after successful creation  1817ms
+     ✓ resets breed and custom fields when species changes  529ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/__tests__/components/ProtectedRoute.test.tsx [ src/__tests__/components/ProtectedRoute.test.tsx ]
+Error: Failed to resolve import "../../../components/ProtectedRoute" from "src/__tests__/components/ProtectedRoute.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /home/leo/GitHub/mdp/MP_202610_G81_E2_Front/src/__tests__/components/ProtectedRoute.test.tsx:3:31
+  1  |  import { render, screen } from "@testing-library/react";
+  2  |  import { MemoryRouter, Route, Routes } from "react-router-dom";
+  3  |  import { ProtectedRoute } from "../../../components/ProtectedRoute";
+     |                                  ^
+  4  |  import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
+  5  |  var _jsxFileName = "/home/leo/GitHub/mdp/MP_202610_G81_E2_Front/src/__tests__/components/ProtectedRoute.test.tsx";
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:30352:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:30349:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:27631:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:27694:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:27662:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:30141:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:24489:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 10 passed (11)
+      Tests  77 passed (77)
+   Start at  19:55:46
+   Duration  25.80s (transform 4.59s, setup 3.95s, import 19.12s, tests 56.94s, environment 63.71s)
+
