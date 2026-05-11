@@ -103,7 +103,7 @@ describe('CreatePetScreen', () => {
     await user.click(termsCheck);
 
     const submitBtn = screen.getByRole('button', { name: /agregar mascota al refugio/i });
-    fireEvent.submit(document.querySelector("form") as HTMLFormElement);      screen.debug();
+    fireEvent.submit(document.querySelector("form") as HTMLFormElement);
     await waitFor(() => {
       expect(globalThis.fetch).toHaveBeenCalledTimes(1);
     });
@@ -284,5 +284,61 @@ describe('CreatePetScreen', () => {
     const homeButton = screen.getByRole('button', { name: /Ir al inicio/i });
     await userEvent.setup({ delay: null }).click(homeButton);
     expect(mockedNavigate).toHaveBeenCalledWith('/');
+  });
+
+  it('resets breed and custom fields when species changes', async () => {
+    renderWithRouter(<CreatePetScreen />);
+    const user = userEvent.setup({ delay: null });
+
+    // Select Other species
+    const speciesSelect = document.querySelector('#species') as HTMLSelectElement;
+    fireEvent.change(speciesSelect, { target: { value: 'Other' } });
+
+    // Type custom species
+    const customSpeciesInput = await screen.findByPlaceholderText('Ej. Conejo, Hurón...');
+    await user.type(customSpeciesInput, 'Loro');
+
+    // Type custom breed
+    const customBreedInput = await screen.findByPlaceholderText('Especifique la raza');
+    await user.type(customBreedInput, 'Guacamaya');
+
+    // Change species back to Dog
+    fireEvent.change(speciesSelect, { target: { value: 'Dog' } });
+
+    // The custom species input should be gone
+    expect(screen.queryByPlaceholderText('Ej. Conejo, Hurón...')).not.toBeInTheDocument();
+    
+    // Select breed "Otra" for Dog
+    const breedSelect = document.querySelector('#breed') as HTMLSelectElement;
+    fireEvent.change(breedSelect, { target: { value: 'Otra' } });
+
+    // Type custom breed again
+    const customBreedInput2 = await screen.findByPlaceholderText('Especifique la raza');
+    await user.type(customBreedInput2, 'Mezcla');
+
+    // Change breed to a specific one
+    fireEvent.change(breedSelect, { target: { value: 'Pug' } });
+
+    // The custom breed input should be gone
+    expect(screen.queryByPlaceholderText('Especifique la raza')).not.toBeInTheDocument();
+  });
+
+  it('clears validation errors on change', async () => {
+    renderWithRouter(<CreatePetScreen />);
+    const user = userEvent.setup({ delay: null });
+
+    const submitBtn = screen.getByRole('button', { name: /agregar mascota al refugio/i });
+    fireEvent.click(submitBtn);
+
+    // Should show error for name
+    const errorMessages = await screen.findAllByText('Requerido');
+    expect(errorMessages.length).toBeGreaterThan(0);
+
+    const nameInput = screen.getByPlaceholderText('Nombre');
+    expect(nameInput).toHaveClass('border-red-500');
+
+    // Type in name to clear error
+    await user.type(nameInput, 'Bobby');
+    expect(nameInput).not.toHaveClass('border-red-500');
   });
 });

@@ -151,4 +151,25 @@ describe('LoginScreen Component', () => {
     fireEvent.click(backButton);
     expect(mockedNavigate).toHaveBeenCalledWith(-1);
   });
+
+  test('Limpia los errores de validación al escribir en los campos', async () => {
+    renderComponent();
+    
+    // Enviar el formulario vacío para generar errores
+    const submitButton = screen.getByRole('button', { name: /Ingresar/i });
+    fireEvent.submit(screen.getByTestId("login-form"));
+
+    expect(await screen.findByText(/El correo es obligatorio/i)).toBeInTheDocument();
+    expect(await screen.findByText(/La contraseña es obligatoria/i)).toBeInTheDocument();
+
+    // Escribir en los campos para limpiar errores
+    const emailInput = screen.getByPlaceholderText(/Ingresa tu correo/i);
+    const passwordInput = screen.getByPlaceholderText(/Ingresa tu contraseña/i);
+
+    await userEvent.setup({ delay: null }).type(emailInput, 'a');
+    await userEvent.setup({ delay: null }).type(passwordInput, 'a');
+
+    expect(screen.queryByText(/El correo es obligatorio/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/La contraseña es obligatoria/i)).not.toBeInTheDocument();
+  });
 });

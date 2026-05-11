@@ -244,4 +244,92 @@ describe('ManageAdoptionRequestsScreen', () => {
     await userEvent.setup({ delay: null }).click(backButton);
     expect(mockedNavigate).toHaveBeenCalledWith(-1);
   });
+
+  it('handles responses that are not arrays', async () => {
+    (globalThis.fetch as any).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ message: 'Not an array' })
+    });
+    renderWithRouter(<ManageAdoptionRequestsScreen />);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/No hay solicitudes registradas/i)).toBeInTheDocument();
+    });
+  });
+
+  it('renders pre-approved and pre-rejected requests with correct labels', async () => {
+    const statusesRequests = [
+      {
+        id: 10,
+        requestDate: '2026-05-10',
+        status: 'APROBADA',
+        comments: 'Ok',
+        adopterId: 2,
+        petId: 3
+      },
+      {
+        id: 11,
+        requestDate: '2026-05-11',
+        status: 'RECHAZADA',
+        comments: 'No ok',
+        adopterId: 4,
+        petId: 5
+      }
+    ];
+
+    (globalThis.fetch as any).mockResolvedValueOnce({
+      ok: true,
+      json: async () => statusesRequests
+    });
+
+    renderWithRouter(<ManageAdoptionRequestsScreen />);
+    
+    await waitFor(() => {
+      // First is selected by default
+      expect(screen.getByText(/Detalle de Solicitud #010/i)).toBeInTheDocument();
+    });
+
+    // Check labels
+    const aprobadaLabels = screen.getAllByText('Aprobada');
+    expect(aprobadaLabels.length).toBeGreaterThan(0);
+
+    // Click the rejected one
+    const rejectedArticle = screen.getAllByRole('article')[1];
+    await userEvent.setup({ delay: null }).click(rejectedArticle);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Detalle de Solicitud #011/i)).toBeInTheDocument();
+    });
+
+    const rechazadaLabels = screen.getAllByText('Rechazada');
+    expect(rechazadaLabels.length).toBeGreaterThan(0);
+  });
+
+  it('handles requests with missing relations and fields', async () => {
+    const missingFieldsRequest = [
+      {
+        id: 99,
+        status: undefined,
+        // no requestDate, no adopter, no pet, no adopterId, no petId
+      }
+    ];
+
+    (globalThis.fetch as any).mockResolvedValueOnce({
+      ok: true,
+      json: async () => missingFieldsRequest
+    });
+
+    renderWithRouter(<ManageAdoptionRequestsScreen />);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/Detalle de Solicitud #099/i)).toBeInTheDocument();
+    });
+
+    // Fallbacks
+    expect(screen.getAllByText('Pendiente').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Sin fecha').length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Adoptante #-/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText('correo no disponible').length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Mascota #-/i).length).toBeGreaterThan(0);
+  });
 });
