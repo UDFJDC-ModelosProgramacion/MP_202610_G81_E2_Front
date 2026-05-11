@@ -91,7 +91,7 @@ describe('LoginScreen Component', () => {
 
     await waitFor(() => {
       expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringContaining('/login'), expect.any(Object));
-      expect(mockedNavigate).toHaveBeenCalledWith('/');
+      expect(mockedNavigate).toHaveBeenCalledWith('/servicios');
     });
   });
 

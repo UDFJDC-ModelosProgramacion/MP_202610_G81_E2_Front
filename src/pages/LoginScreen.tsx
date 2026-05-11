@@ -42,7 +42,8 @@ export function LoginScreen() {
       });
 
       if (response.ok) {
-        navigate('/');
+        localStorage.setItem('isAuthenticated', 'true');
+        navigate('/servicios');
       } else if (response.status === 401 || response.status === 403) {
         setErrors({ general: 'Correo o contraseña incorrectos.' });
       } else {

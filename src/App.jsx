@@ -10,6 +10,8 @@ import PetReviewsPage from './pages/PetReviewScreen'; // Pantalla de visualizaci
 import { LoginScreen } from './pages/LoginScreen'; // Pantalla de login
 import ManageAdoptionRequestsScreen from './pages/ManageAdoptionRequestsScreen'; //Aprobación o rechazo de solicitudes de adopción
 import PetListScreen from './pages/PetListScreen'; // Listar mascotas
+import ServiceScreen from './pages/ServiceScreen'; // Nueva pantalla de servicios protegida
+import { ProtectedRoute } from './components/ProtectedRoute'; // Componente protector de rutas
 
 import './App.css'; // Mantenemos esta línea para tus estilos globales
 
@@ -24,9 +26,10 @@ function App() {
             <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 gap-4 p-6 text-center">
               <div className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-4 max-w-sm w-full">
                 <div className="text-6xl mb-2">🐾</div>
-                <h1 className="text-2xl font-bold text-[#2D3436] mb-4">
-                  Panel Temporal
+                <h1 className="text-2xl font-bold text-[#2D3436] mb-2">
+                  Bienvenido al Refugio
                 </h1>
+                <p className="text-gray-500 text-sm mb-6">Inicia sesión para continuar</p>
 
                 <Link
                   to="/login"
@@ -41,62 +44,19 @@ function App() {
                 >
                   Registro de Cliente
                 </Link>
-                
-                <Link 
-                  to="/create-shelter" 
-                  className="p-3 bg-orange-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
-                >
-                  Registrar Shelter
-                </Link>
-
-                <Link 
-                  to="/create-pet" 
-                  className="p-3 bg-pink-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
-                >
-                  Registrar Mascota
-                </Link>
-
-                {/* Nuevo enlace para Listar Mascotas */}
-                <Link 
-                  to="/listar-mascotas" 
-                  className="p-3 bg-teal-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
-                >
-                  Listar Mascotas
-                </Link>
-
-                {/* Nuevo enlace para Solicitar Adopción */}
-                <Link 
-                  to="/solicitar-adopcion" 
-                  className="p-3 bg-green-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
-                >
-                  Solicitar Adopción
-                </Link>
-
-                <Link
-                  to="/solicitudes-adopcion"
-                className="p-3 bg-gradient-to-r from-purple-600 to-orange-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
-                >
-                  Gestionar Solicitudes de Adopción
-                </Link>
-
-                {/* Enlace para Crear Reseña */}
-                <Link 
-                  to="/crear-resena" 
-                  className="p-3 bg-[#6C5CE7] text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm border-2 border-purple-300"
-                >
-                  Crear Reseña de Adopción
-                </Link>
-
-                {/* Enlace para Ver Reseñas (HU14) */}
-                <Link 
-                  to="/ver-resenas" 
-                  className="p-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
-                >
-                  Ver Reseñas de Mascotas
-                </Link>
               </div>
             </div>
           }
+        />
+
+        {/* Nueva ruta protegida para los servicios */}
+        <Route 
+          path="/servicios" 
+          element={
+            <ProtectedRoute>
+              <ServiceScreen />
+            </ProtectedRoute>
+          } 
         />
 
         {/* Ruta de la pantalla de registro */}
