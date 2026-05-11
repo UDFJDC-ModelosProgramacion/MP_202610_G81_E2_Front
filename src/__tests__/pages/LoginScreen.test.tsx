@@ -111,4 +111,44 @@ describe('LoginScreen Component', () => {
     expect(await screen.findByText(/Correo o contraseña incorrectos./i)).toBeInTheDocument();
     expect(mockedNavigate).not.toHaveBeenCalled();
   });
+  test('simula error 500 y muestra mensaje genérico', async () => {
+    (globalThis.fetch as any).mockResolvedValueOnce({
+      ok: false, status: 500,
+    });
+
+    renderComponent();
+
+    const emailInput = screen.getByPlaceholderText(/Ingresa tu correo/i);
+    const passwordInput = screen.getByPlaceholderText(/Ingresa tu contraseña/i);
+
+    await userEvent.setup({ delay: null }).type(emailInput, 'user@example.com');
+    await userEvent.setup({ delay: null }).type(passwordInput, 'Password123');
+
+    fireEvent.submit(screen.getByTestId("login-form"));
+
+    expect(await screen.findByText(/Error en el inicio de sesión. Intenta de nuevo./i)).toBeInTheDocument();
+  });
+
+  test('simula fallo de red', async () => {
+    (globalThis.fetch as any).mockRejectedValueOnce(new Error('Network error'));
+
+    renderComponent();
+
+    const emailInput = screen.getByPlaceholderText(/Ingresa tu correo/i);
+    const passwordInput = screen.getByPlaceholderText(/Ingresa tu contraseña/i);
+
+    await userEvent.setup({ delay: null }).type(emailInput, 'user@example.com');
+    await userEvent.setup({ delay: null }).type(passwordInput, 'Password123');
+
+    fireEvent.submit(screen.getByTestId("login-form"));
+
+    expect(await screen.findByText(/Error al conectar con el servidor/i)).toBeInTheDocument();
+  });
+
+  test('navega hacia atrás al hacer clic en Volver', () => {
+    renderComponent();
+    const backButton = screen.getByRole('button', { name: /Volver/i });
+    fireEvent.click(backButton);
+    expect(mockedNavigate).toHaveBeenCalledWith(-1);
+  });
 });
