@@ -26,7 +26,8 @@ const ShelterScreen: React.FC = () => {
     useEffect(() => {
         const fetchShelters = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/shelters', {
+                const API_BASE_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:8080/api';
+                const response = await fetch(`${API_BASE_URL}/shelters`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
