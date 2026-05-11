@@ -56,7 +56,7 @@ Se han implementado las siguientes historias de usuario:
 | Historia de usuario | Responsable |
 |---|---|
 | HU01 Registro | Sofía Rivera Fernández |
-| HU02 Inicio de sesión | Sofía Rivera |
+| HU02 Inicio de sesión | Sofía Rivera Fernández|
 | HU04 Crear shelter | Karen Johanna Cabezas Herrera |
 | HU05 Listar shelters | Karen Johanna Cabezas Herrera |
 | HU07 Crear mascota | Sergio Leonardo Moreno Granado |
