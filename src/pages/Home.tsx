@@ -188,16 +188,16 @@ export default function AdoptaLanding() {
                     <div className="w-[250px] h-[250px] bg-white/12 rounded-full absolute"></div>
 
                     {/* Huellas decorativas internas (Efecto relieve/textura) */}
-                    <div className="absolute text-[20px] text-white/10 top-[20px] left-[15px] -rotate-12 select-none pointer-events-none">🐾</div>
-                    <div className="absolute text-[28px] text-white/15 bottom-[40px] right-[20px] rotate-12 select-none pointer-events-none">🐾</div>
-                    <div className="absolute text-[15px] text-white/20 top-[80px] right-[40px] rotate-45 select-none pointer-events-none">🐾</div>
-                    <div className="absolute text-[30px] text-white/5 top-[40px] right-[200px] -rotate-12 select-none pointer-events-none">🐾</div>
-                    <div className="absolute text-[18px] text-white/20 bottom-[80px] left-[40px] rotate-12 select-none pointer-events-none">🐾</div>
-                    <div className="absolute text-[22px] text-white/10 top-[150px] left-[30px] -rotate-45 select-none pointer-events-none">🐾</div>
-                    <div className="absolute text-[25px] text-white/15 bottom-[120px] right-[80px] -rotate-12 select-none pointer-events-none">🐾</div>
-                    <div className="absolute text-[15px] text-white/10 top-[180px] right-[10px] rotate-12 select-none pointer-events-none">🐾</div>
-                    <div className="absolute text-[24px] text-white/5 bottom-[10px] left-[150px] rotate-45 select-none pointer-events-none">🐾</div>
-                    <div className="absolute text-[18px] text-white/15 top-[10px] left-[120px] rotate-12 select-none pointer-events-none">🐾</div>
+                    <div className="absolute text-[100px] text-white/10 top-[20px] left-[15px] -rotate-12 select-none pointer-events-none">🐾</div>
+                    <div className="absolute text-[100px] text-white/15 bottom-[40px] right-[20px] rotate-12 select-none pointer-events-none">🐾</div>
+                    <div className="absolute text-[80px] text-white/20 top-[80px] right-[40px] rotate-45 select-none pointer-events-none">🐾</div>
+                    <div className="absolute text-[120px] text-white/5 top-[40px] right-[200px] -rotate-12 select-none pointer-events-none">🐾</div>
+                    <div className="absolute text-[100px] text-white/20 bottom-[80px] left-[40px] rotate-12 select-none pointer-events-none">🐾</div>
+                    <div className="absolute text-[60px] text-white/10 top-[150px] left-[30px] -rotate-45 select-none pointer-events-none">🐾</div>
+                    <div className="absolute text-[90px] text-white/15 bottom-[120px] right-[80px] -rotate-12 select-none pointer-events-none">🐾</div>
+                    <div className="absolute text-[50px] text-white/10 top-[180px] right-[10px] rotate-12 select-none pointer-events-none">🐾</div>
+                    <div className="absolute text-[70px] text-white/5 bottom-[10px] left-[150px] rotate-45 select-none pointer-events-none">🐾</div>
+                    <div className="absolute text-[60px] text-white/15 top-[10px] left-[120px] rotate-12 select-none pointer-events-none">🐾</div>
 
                     {/* Imagen de la mascota */}
                     <div className="w-[80%] lg:w-[75%] relative z-10 flex justify-center items-center h-full">
