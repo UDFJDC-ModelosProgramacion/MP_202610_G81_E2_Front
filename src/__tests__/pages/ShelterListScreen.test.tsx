@@ -20,29 +20,20 @@ describe('ShelterListScreen Component', () => {
   const mockShelters = [
     {
       id: 1,
-      name: 'Refugio Esperanza',
-      nit: '123456789',
-      phone: '3001234567',
+      shelterName: 'Refugio Esperanza',
+      city: 'Bogota',
+      phoneNumber: '3001234567',
       email: 'contacto@esperanza.com',
-      website: 'www.esperanza.com',
-      city: 'Bogotá',
-      address: 'Calle 123',
-      locationDetails: 'Frente al parque',
       status: 'ACTIVE',
-      description: 'Refugio para perritos en Bogotá',
+      type: 'Centro de Rescate',
     },
     {
       id: 2,
-      name: 'Huellitas Felices',
-      nit: '987654321',
-      phone: '3009876543',
-      email: 'hola@huellitas.com',
-      website: 'www.huellitas.com',
-      city: 'Medellín',
-      address: 'Carrera 45',
-      locationDetails: 'Cerca a la estación',
+      shelterName: 'Huellitas Felices',
+      city: 'Medellin',
+      phoneNumber: '3009876543',
       status: 'INACTIVE',
-      description: 'Cuidamos gatos y perros',
+      type: 'Casa de Acogida',
     },
   ];
 
@@ -59,13 +50,35 @@ describe('ShelterListScreen Component', () => {
     );
   };
 
-  test('muestra el estado de carga inicialmente', () => {
-    (globalThis.fetch as any).mockImplementationOnce(() => new Promise(() => {}));
+  test('Carga inicial: Verificar que la API es llamada y las tarjetas de refugio se renderizan', async () => {
+    (globalThis.fetch as any).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockShelters,
+    });
+
     renderComponent();
+    
+    // verify loading state
+    expect(screen.getByTestId('loading-state')).toBeInTheDocument();
     expect(screen.getByText('Cargando refugios...')).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-state')).not.toBeInTheDocument();
+    });
+
+    // verify API call
+    expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringContaining('/shelters'), expect.any(Object));
+
+    // verify cards are rendered
+    expect(screen.getByText('Refugio Esperanza')).toBeInTheDocument();
+    expect(screen.getByText('Bogota, CO')).toBeInTheDocument();
+    expect(screen.getByText('Huellitas Felices')).toBeInTheDocument();
+    
+    expect(screen.getByText('2 resultados encontrados')).toBeInTheDocument();
   });
 
-  test('renderiza la lista de refugios correctamente desde el API', async () => {
+  test('Búsqueda: Simular la escritura en la barra de búsqueda y el clic en Filtrar', async () => {
+    // Initial fetch
     (globalThis.fetch as any).mockResolvedValueOnce({
       ok: true,
       json: async () => mockShelters,
@@ -74,20 +87,31 @@ describe('ShelterListScreen Component', () => {
     renderComponent();
 
     await waitFor(() => {
-      expect(screen.queryByText('Cargando refugios...')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('loading-state')).not.toBeInTheDocument();
     });
 
-    expect(screen.getByText('Refugio Esperanza')).toBeInTheDocument();
-    expect(screen.getByText('Bogotá')).toBeInTheDocument();
+    // Reset fetch mock for the search action
+    (globalThis.fetch as any).mockClear();
     
-    expect(screen.getByText('Huellitas Felices')).toBeInTheDocument();
-    expect(screen.getByText('Medellín')).toBeInTheDocument();
+    // Mock the response for the filtered search
+    (globalThis.fetch as any).mockResolvedValueOnce({
+      ok: true,
+      json: async () => [mockShelters[0]],
+    });
 
-    expect(screen.getByText('Se encontraron')).toBeInTheDocument();
-    expect(screen.getByText('2 shelters')).toBeInTheDocument();
+    const searchInput = screen.getByPlaceholderText('Buscar refugio por nombre...');
+    await userEvent.setup({ delay: null }).type(searchInput, 'Esperanza');
+    
+    const filterButton = screen.getByRole('button', { name: /^Filtrar$/i });
+    fireEvent.click(filterButton);
+
+    await waitFor(() => {
+        // verify API was called with the ?name parameter
+        expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringContaining('/shelters?name=Esperanza'), expect.any(Object));
+    });
   });
 
-  test('muestra un mensaje de error si la petición falla', async () => {
+  test('Manejo de Errores: Verificar que se muestra un mensaje de error si la API falla', async () => {
     (globalThis.fetch as any).mockResolvedValueOnce({
       ok: false,
       status: 500,
@@ -96,21 +120,12 @@ describe('ShelterListScreen Component', () => {
     renderComponent();
 
     await waitFor(() => {
-      expect(screen.getByText('Error al obtener los refugios')).toBeInTheDocument();
+      expect(screen.getByTestId('error-state')).toBeInTheDocument();
+      expect(screen.getByText('Error obteniendo los refugios')).toBeInTheDocument();
     });
   });
 
-  test('muestra mensaje si hay un error de red', async () => {
-    (globalThis.fetch as any).mockRejectedValueOnce(new Error('Network error'));
-
-    renderComponent();
-
-    await waitFor(() => {
-      expect(screen.getByText('Network error')).toBeInTheDocument();
-    });
-  });
-
-  test('muestra mensaje cuando no hay refugios', async () => {
+  test('Estado Vacío: Verificar que se muestra un mensaje si la API devuelve una lista vacía', async () => {
     (globalThis.fetch as any).mockResolvedValueOnce({
       ok: true,
       json: async () => [],
@@ -119,49 +134,12 @@ describe('ShelterListScreen Component', () => {
     renderComponent();
 
     await waitFor(() => {
-      expect(screen.getByText('No se encontraron refugios registrados')).toBeInTheDocument();
+      expect(screen.getByTestId('empty-state')).toBeInTheDocument();
+      expect(screen.getByText('No hay refugios existentes')).toBeInTheDocument();
     });
   });
 
-  test('filtra refugios por nombre', async () => {
-    (globalThis.fetch as any).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockShelters,
-    });
-
-    renderComponent();
-
-    await waitFor(() => {
-      expect(screen.getByText('Refugio Esperanza')).toBeInTheDocument();
-    });
-
-    const searchInput = screen.getByPlaceholderText('Buscar shelter por nombre o ciudad...');
-    await userEvent.setup({ delay: null }).type(searchInput, 'huellitas');
-
-    expect(screen.queryByText('Refugio Esperanza')).not.toBeInTheDocument();
-    expect(screen.getByText('Huellitas Felices')).toBeInTheDocument();
-  });
-
-  test('filtra refugios por ciudad', async () => {
-    (globalThis.fetch as any).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockShelters,
-    });
-
-    renderComponent();
-
-    await waitFor(() => {
-      expect(screen.getByText('Bogotá')).toBeInTheDocument();
-    });
-
-    const searchInput = screen.getByPlaceholderText('Buscar shelter por nombre o ciudad...');
-    await userEvent.setup({ delay: null }).type(searchInput, 'bogot');
-
-    expect(screen.getByText('Refugio Esperanza')).toBeInTheDocument();
-    expect(screen.queryByText('Huellitas Felices')).not.toBeInTheDocument();
-  });
-
-  test('navega al detalle del refugio al hacer clic en el botón', async () => {
+  test('Clic en Acción: Simular el clic en el botón Ver shelter y verificar redirección', async () => {
     (globalThis.fetch as any).mockResolvedValueOnce({
       ok: true,
       json: async () => [mockShelters[0]],
@@ -173,9 +151,41 @@ describe('ShelterListScreen Component', () => {
       expect(screen.getByText('Refugio Esperanza')).toBeInTheDocument();
     });
 
-    const detailButton = screen.getByRole('button', { name: /Ver detalle/i });
-    fireEvent.click(detailButton);
+    const actionButtons = screen.getAllByRole('button', { name: /Ver shelter/i });
+    fireEvent.click(actionButtons[0]);
 
     expect(mockedNavigate).toHaveBeenCalledWith('/shelters/1');
+  });
+  
+  test('Botón de Limpiar Filtros limpia la búsqueda', async () => {
+    // Initial fetch
+    (globalThis.fetch as any).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockShelters,
+    });
+
+    renderComponent();
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-state')).not.toBeInTheDocument();
+    });
+
+    const searchInput = screen.getByPlaceholderText('Buscar refugio por nombre...');
+    await userEvent.setup({ delay: null }).type(searchInput, 'Algo');
+    
+    // Reset fetch mock
+    (globalThis.fetch as any).mockClear();
+    (globalThis.fetch as any).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockShelters,
+    });
+    
+    const resetButton = screen.getByRole('button', { name: /Limpiar Filtros/i });
+    fireEvent.click(resetButton);
+
+    await waitFor(() => {
+        expect(searchInput).toHaveValue('');
+        expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringMatching(/\/api\/shelters$/), expect.any(Object));
+    });
   });
 });
