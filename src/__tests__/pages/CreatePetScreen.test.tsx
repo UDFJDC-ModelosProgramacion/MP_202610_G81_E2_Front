@@ -46,7 +46,7 @@ describe('CreatePetScreen', () => {
     expect(screen.getByPlaceholderText('URL de la imagen (JPG, PNG)')).toBeInTheDocument();
     expect(screen.getByLabelText(/Acepta los términos y condiciones/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Lugar de procedencia')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Edad / Fecha Nac.')).toBeInTheDocument();
+    expect(screen.getByLabelText(/Fecha de Nacimiento/i)).toBeInTheDocument();
     
     expect(screen.getByRole('button', { name: /agregar mascota al refugio/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /cancelar/i })).toBeInTheDocument();
@@ -146,7 +146,7 @@ describe('CreatePetScreen', () => {
       // Fill optional fields
     await user.type(screen.getByPlaceholderText('Necesidades Especiales'), 'None');
     await user.type(screen.getByPlaceholderText('Lugar de procedencia'), 'Street');
-    await user.type(screen.getByPlaceholderText('Edad / Fecha Nac.'), '2022-01-15');
+    fireEvent.change(document.querySelector('#bornDate') as HTMLInputElement, { target: { value: '2022-01-15' } });
     await user.type(screen.getByPlaceholderText('URL de la imagen (JPG, PNG)'), 'https://example.com/photo.jpg');
     
     // Check rescued checkbox

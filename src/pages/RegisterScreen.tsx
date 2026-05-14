@@ -25,8 +25,10 @@ export function RegisterScreen() {
     if (!formData.name) newErrors.name = 'El nombre es requerido.';
     if (!formData.email) newErrors.email = 'El correo es requerido.';
 
-    if (formData.password.length < 6) {
-      newErrors.password = 'La contraseña debe tener al menos 6 caracteres.';
+    if (!formData.password) {
+      newErrors.password = 'La contraseña es obligatoria.';
+    } else if (!/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/.test(formData.password)) {
+      newErrors.password = 'La contraseña debe tener al menos 8 caracteres y contener letras y números.';
     }
 
     if (formData.password !== formData.confirmPassword) {

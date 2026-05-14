@@ -93,6 +93,15 @@ export function CreatePetScreen() {
       newErrors.customBreed = 'Requerido';
     }
     
+    if (!formData.bornDate) {
+      newErrors.bornDate = 'Requerido';
+    } else {
+      const todayStr = new Date().toISOString().split('T')[0];
+      if (formData.bornDate > todayStr) {
+        newErrors.bornDate = 'La fecha no puede ser en el futuro';
+      }
+    }
+
     if (!formData.imageUrl) newErrors.imageUrl = 'Requerido';
     if (!formData.termsAccepted) newErrors.termsAccepted = 'Requerido';
 
@@ -371,16 +380,19 @@ export function CreatePetScreen() {
 
               <div>
                 <label className="block font-semibold text-[#2D3436] mb-2" htmlFor="bornDate">
-                  Fecha de Nacimiento o Edad
+                  Fecha de Nacimiento <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="bornDate"
-                  type="text" 
+                  type="date" 
                   value={formData.bornDate}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white border border-[#DCDDE1] rounded-lg focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors"
-                  placeholder="Edad / Fecha Nac." 
+                  max={new Date().toISOString().split('T')[0]}
+                  className={`w-full px-4 py-3 bg-white border ${
+                    errors.bornDate ? 'border-red-500 bg-red-50' : 'border-[#DCDDE1]'
+                  } rounded-lg focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors`}
                 />
+                {errors.bornDate && <p className="mt-1 text-red-500 text-sm font-semibold">{errors.bornDate}</p>}
               </div>
 
               <div>

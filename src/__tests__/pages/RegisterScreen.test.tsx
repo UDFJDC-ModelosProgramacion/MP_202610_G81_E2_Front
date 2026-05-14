@@ -34,7 +34,7 @@ describe('RegisterScreen', () => {
 
     expect(await screen.findByText('El nombre es requerido.')).toBeInTheDocument();
     expect(await screen.findByText('El correo es requerido.')).toBeInTheDocument();
-    expect(await screen.findByText('La contraseña debe tener al menos 6 caracteres.')).toBeInTheDocument();
+    expect(await screen.findByText('La contraseña es obligatoria.')).toBeInTheDocument();
   });
 
   it('shows validation error when passwords do not match', async () => {
@@ -47,8 +47,8 @@ describe('RegisterScreen', () => {
     
     await userEvent.setup({ delay: null }).type(nameInput, 'Juan Perez');
     await userEvent.setup({ delay: null }).type(emailInput, 'juan@example.com');
-    await userEvent.setup({ delay: null }).type(passwordInput, '123456');
-    await userEvent.setup({ delay: null }).type(confirmPasswordInput, '1234567');
+    await userEvent.setup({ delay: null }).type(passwordInput, '1234567a');
+    await userEvent.setup({ delay: null }).type(confirmPasswordInput, '1234567b');
     
     const submitButton = screen.getByRole('button', { name: /registrarse/i });
     fireEvent.click(submitButton);
