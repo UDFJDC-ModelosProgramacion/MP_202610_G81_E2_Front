@@ -217,6 +217,7 @@ describe('CreatePetScreen', () => {
     fireEvent.change(document.querySelector('#breed') as HTMLSelectElement, { target: { value: 'Labrador Retriever' } });
     fireEvent.change(document.querySelector("#temperament") as HTMLSelectElement, { target: { value: "Playful" } });
     await user.type(screen.getByPlaceholderText('URL de la imagen (JPG, PNG)'), 'https://example.com/photo.jpg');
+    fireEvent.change(document.querySelector('#bornDate') as HTMLInputElement, { target: { value: '2022-01-15' } });
     
     await user.click(screen.getByLabelText(/Acepta los términos y condiciones/i));
 
@@ -245,6 +246,7 @@ describe('CreatePetScreen', () => {
     fireEvent.change(document.querySelector('#breed') as HTMLSelectElement, { target: { value: 'Labrador Retriever' } });
     fireEvent.change(document.querySelector("#temperament") as HTMLSelectElement, { target: { value: "Playful" } });
     await user.type(screen.getByPlaceholderText('URL de la imagen (JPG, PNG)'), 'https://example.com/photo.jpg');
+    fireEvent.change(document.querySelector('#bornDate') as HTMLInputElement, { target: { value: '2022-01-15' } });
     
     await user.click(screen.getByLabelText(/Acepta los términos y condiciones/i));
 
@@ -272,6 +274,7 @@ describe('CreatePetScreen', () => {
     fireEvent.change(document.querySelector('#breed') as HTMLSelectElement, { target: { value: 'Labrador Retriever' } });
     fireEvent.change(document.querySelector("#temperament") as HTMLSelectElement, { target: { value: "Playful" } });
     await user.type(screen.getByPlaceholderText('URL de la imagen (JPG, PNG)'), 'https://example.com/photo.jpg');
+    fireEvent.change(document.querySelector('#bornDate') as HTMLInputElement, { target: { value: '2022-01-15' } });
     
     await user.click(screen.getByLabelText(/Acepta los términos y condiciones/i));
 
