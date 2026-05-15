@@ -11,6 +11,7 @@ import { LoginScreen } from './pages/LoginScreen'; // Pantalla de login
 import ManageAdoptionRequestsScreen from './pages/ManageAdoptionRequestsScreen'; //Aprobación o rechazo de solicitudes de adopción
 import PetListScreen from './pages/PetListScreen'; // Listar mascotas
 import ShelterScreen from './pages/ShelterListScreen'; // Pantalla de lista de shelters
+import AdoptionRequestStatusScreen from './pages/AdoptionRequestStatusScreen';
 
 import './App.css'; // Mantenemos esta línea para tus estilos globales
 
@@ -103,6 +104,14 @@ function App() {
                 >
                   Listar Shelters
                 </Link>
+
+                <Link
+                  to="/estado-solicitudes-adopcion"
+                  className="p-3 bg-gradient-to-r from-purple-600 to-orange-500 text-white rounded-lg hover:opacity-90 transition-colors font-semibold shadow-sm"
+                >
+                  Ver Estado de Solicitudes
+                </Link>
+
               </div>
             </div>
           }
@@ -137,6 +146,9 @@ function App() {
 
         {/* Ruta de listar shelters */}
         <Route path="/shelters" element={<ShelterScreen />} />
+        
+        {/*Ruta de ver estado de solicitudes */}
+        <Route path="/estado-solicitudes-adopcion" element={<AdoptionRequestStatusScreen />} />
         
       </Routes>
     </Router>
