@@ -31,10 +31,7 @@ const ShelterListScreen: React.FC = () => {
                 : `${API_BASE_URL}/shelters`;
             
             const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                method: 'GET'
             });
 
             if (!response.ok) {
@@ -84,8 +81,14 @@ const ShelterListScreen: React.FC = () => {
             ></div>
 
             {/* Header section matching the image gradient */}
-            <header className="w-full bg-gradient-to-r from-purple-600 to-orange-500 pt-12 pb-24 px-6 shadow-xl relative z-10">
-                <div className="max-w-7xl mx-auto">
+            <header className="w-full bg-gradient-to-r from-purple-600 to-orange-500 pt-8 pb-24 px-6 shadow-xl relative z-10">
+                <div className="max-w-7xl mx-auto flex flex-col items-start">
+                    <button
+                        onClick={() => navigate('/')}
+                        className="mb-6 px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors flex items-center gap-2"
+                    >
+                        ← Volver al Inicio
+                    </button>
                     <h1 className="text-white text-5xl font-bold mb-8">Lista de Refugios</h1>
                 </div>
             </header>

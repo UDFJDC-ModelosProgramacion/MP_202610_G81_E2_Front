@@ -11,6 +11,7 @@ import { LoginScreen } from './pages/LoginScreen'; // Pantalla de login
 import ManageAdoptionRequestsScreen from './pages/ManageAdoptionRequestsScreen'; //Aprobación o rechazo de solicitudes de adopción
 import PetListScreen from './pages/PetListScreen'; // Listar mascotas
 import ShelterScreen from './pages/ShelterListScreen'; // Pantalla de lista de shelters
+import ShelterDetailScreen from './pages/ShelterDetailScreen'; // Detalle del shelter
 
 import './App.css'; // Mantenemos esta línea para tus estilos globales
 
@@ -137,6 +138,9 @@ function App() {
 
         {/* Ruta de listar shelters */}
         <Route path="/shelters" element={<ShelterScreen />} />
+        
+        {/* Ruta de detalle de shelter */}
+        <Route path="/shelters/:id" element={<ShelterDetailScreen />} />
         
       </Routes>
     </Router>

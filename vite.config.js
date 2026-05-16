@@ -12,8 +12,11 @@ export default defineConfig({
         secure: false,
         configure: (proxy, _options) => {
           proxy.on('proxyReq', (proxyReq, req, _res) => {
-            proxyReq.setHeader('origin', 'http://localhost:8080');
-            proxyReq.setHeader('referer', 'http://localhost:8080/');
+            proxyReq.removeHeader('origin');
+            proxyReq.removeHeader('referer');
+            proxyReq.removeHeader('sec-fetch-site');
+            proxyReq.removeHeader('sec-fetch-mode');
+            proxyReq.removeHeader('sec-fetch-dest');
           });
         }
       }

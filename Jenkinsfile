@@ -10,6 +10,7 @@ pipeline {
             steps {
                 sh 'which node || echo "no hay node"'
                 sh 'which npm || echo "no hay npm"'
+                sh 'which corepack || echo "no hay corepack"'
                 sh 'which sonar-scanner || echo "no hay sonar-scanner"'
             }
         }
@@ -25,9 +26,12 @@ pipeline {
                 script {
                     def nodeHome = tool 'NodeJS 20'
                     env.PATH = "${nodeHome}/bin:${env.PATH}"
+                    env.PNPM_HOME = "${WORKSPACE}/.pnpm-store"
+                    env.PATH = "${env.PNPM_HOME}:${env.PATH}"
                 }
                 sh 'node -v'
-                sh 'npm install'
+                sh 'export CI=true && corepack enable pnpm'
+                sh 'pnpm install --frozen-lockfile'
             }
         }
 
@@ -35,7 +39,7 @@ pipeline {
             steps {
                 // Instala librería de cobertura para vite (en caso que falte) y ejecuta las pruebas de cobertura
                 // También evitamos parar el build si alguna prueba fallara para que se muestre en sonar
-                sh 'npm test -- --run --coverage || exit 1'
+                sh 'pnpm test -- --run --coverage || exit 1'
             }
         }
 
@@ -66,7 +70,7 @@ pipeline {
 
         stage('Construir (Build)') {
             steps {
-                sh 'npm run build'
+                sh 'pnpm run build'
             }
         }
     }
