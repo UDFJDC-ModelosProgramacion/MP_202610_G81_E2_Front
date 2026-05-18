@@ -12,12 +12,16 @@ import ManageAdoptionRequestsScreen from './pages/ManageAdoptionRequestsScreen';
 import PetListScreen from './pages/PetListScreen'; // Listar mascotas
 import ShelterScreen from './pages/ShelterListScreen'; // Pantalla de lista de shelters
 import AdoptaLanding from './pages/Home'; // Importamos el nuevo Home interactivo
+import { EditProfileScreen } from './pages/EditProfileScreen'; // Editar perfil de adoptante
+import { MyAdoptionsScreen } from './pages/MyAdoptionsScreen'; // Mis Adopciones
+import { Navbar } from './components/Navbar'; // Componente de Navegación
 
 import './App.css'; // Mantenemos esta línea para tus estilos globales
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <Routes>
         {/* Ruta principal (Home.tsx refactorizado) */}
         <Route
@@ -27,6 +31,12 @@ function App() {
 
         {/* Ruta de la pantalla de registro */}
         <Route path="/registro" element={<RegisterScreen />} />
+        
+        {/* Ruta para editar el perfil del adoptante */}
+        <Route path="/editar-perfil" element={<EditProfileScreen />} />
+        
+        {/* Ruta de mis adopciones */}
+        <Route path="/mis-adopciones" element={<MyAdoptionsScreen />} />
         
         {/* Ruta de login */}
         <Route path="/login" element={<LoginScreen />} />

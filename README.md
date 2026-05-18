@@ -14,10 +14,11 @@ Para ejecutar la interfaz visual en tu computadora, sigue detalladamente los pas
 ### 1. Pre-requisitos (Instalar Node.js)
 Debes tener instalado **Node.js** para ejecutar este proyecto. Si no lo tienes, descárgalo e instálalo según tu sistema operativo:
 - **Windows y Mac**: Ve a la página oficial de [Node.js](https://nodejs.org/) y descarga el instalador "Recomendado para la mayoría" (versión LTS). Sigue los pasos del instalador como con cualquier programa común.
-- **Linux (Ubuntu/Debian)**: Abre tu terminal e instala Node.js ejecutando:
+- **Linux (Ubuntu/Debian)**: Abre tu terminal e instala Node.js y pnpm ejecutando:
   ```bash
   sudo apt update
   sudo apt install nodejs npm
+  sudo npm install -g pnpm
   ```
 
 ### 2. Descargar el proyecto
@@ -35,13 +36,13 @@ Debes indicarle a la terminal que trabaje sobre la carpeta del proyecto (`MP_202
 ### 4. Instalar las dependencias
 En la ventana negra (terminal) que acabas de abrir, escribe el siguiente comando y presiona `Enter`. Esto descargará lo necesario para que la interfaz funcione:
 ```bash
-npm install
+pnpm install
 ```
 
 ### 5. Iniciar la aplicación
 Cuando el paso anterior finalice, ejecuta el comando para prender la aplicación:
 ```bash
-npm run dev
+pnpm dev
 ```
 
 La terminal te mostrará un enlace (usualmente `http://localhost:5173/`). Solo cópialo y pégalo en tu navegador para ver la página web.

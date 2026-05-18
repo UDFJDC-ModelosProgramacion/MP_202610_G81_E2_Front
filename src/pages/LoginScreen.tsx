@@ -42,6 +42,7 @@ export function LoginScreen() {
       });
 
       if (response.ok) {
+        localStorage.setItem('userEmail', email);
         navigate('/');
       } else if (response.status === 401 || response.status === 403) {
         setErrors({ general: 'Correo o contraseña incorrectos.' });
