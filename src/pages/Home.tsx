@@ -50,7 +50,7 @@ export default function AdoptaLanding() {
             options: [
                 { label: "Crear mascota", path: "/create-pet" },
                 { label: "Listar mascotas", path: "/listar-mascotas" },
-                { label: "Ver detalle de mascota", path: "#" }
+                { label: "Ver detalle de mascota", path: "/listar-mascotas" }
             ]
         },
         adopciones: {

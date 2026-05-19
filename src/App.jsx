@@ -10,6 +10,7 @@ import PetReviewsPage from './pages/PetReviewScreen'; // Pantalla de visualizaci
 import { LoginScreen } from './pages/LoginScreen'; // Pantalla de login
 import ManageAdoptionRequestsScreen from './pages/ManageAdoptionRequestsScreen'; //Aprobación o rechazo de solicitudes de adopción
 import PetListScreen from './pages/PetListScreen'; // Listar mascotas
+import PetDetailScreen from './pages/PetDetailScreen'; // Ver detalle de mascota (HU09)
 import ShelterScreen from './pages/ShelterListScreen'; // Pantalla de lista de shelters
 import AdoptaLanding from './pages/Home'; // Importamos el nuevo Home interactivo
 
@@ -48,6 +49,9 @@ function App() {
 
         {/* Ruta de listar mascotas */}
         <Route path="/listar-mascotas" element={<PetListScreen />} />
+
+        {/* Ruta de ver detalle de mascota (HU09) */}
+        <Route path="/detalle-mascota" element={<PetDetailScreen />} />
 
         {/* Ruta de ver reseñas de mascotas (HU14) */}
         <Route path="/ver-resenas" element={<PetReviewsPage />} />

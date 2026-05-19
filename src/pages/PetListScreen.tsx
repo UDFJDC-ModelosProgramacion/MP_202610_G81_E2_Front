@@ -171,12 +171,20 @@ export const PetListScreen: React.FC = () => {
                                         <p><span className="font-semibold text-gray-700">Temperamento:</span> {pet.temperament}</p>
                                         <p><span className="font-semibold text-gray-700">Sexo:</span> {pet.sex}</p>
                                     </div>
-                                    <button 
-                                        className="w-full border-2 border-[#6C5CE7] text-[#6C5CE7] hover:bg-[#6C5CE7] hover:text-white transition-colors py-2 rounded-lg font-semibold"
-                                        onClick={() => navigate(`/solicitar-adopcion?petId=${pet.id}`)}
-                                    >
-                                        Solicitar Adopción
-                                    </button>
+                                    <div className="space-y-2">
+                                        <button 
+                                            className="w-full bg-[#6C5CE7] text-white hover:opacity-90 transition-colors py-2 rounded-lg font-semibold"
+                                            onClick={() => navigate(`/detalle-mascota?petId=${pet.id}`)}
+                                        >
+                                            Ver Detalle
+                                        </button>
+                                        <button 
+                                            className="w-full border-2 border-[#6C5CE7] text-[#6C5CE7] hover:bg-[#6C5CE7] hover:text-white transition-colors py-2 rounded-lg font-semibold"
+                                            onClick={() => navigate(`/solicitar-adopcion?petId=${pet.id}`)}
+                                        >
+                                            Solicitar Adopción
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         ))}
